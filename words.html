@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Words Project</title>
+</head>
+<body>
+
+<h1>Words Project</h1>
+
+<!-- WORD SECTION -->
+
+<select id="wordSelect">
+    <option value="">--Select--</option>
+
+    <option value="Ocean" data-sentence="The ocean is vast and full of mysterious life.">Ocean</option>
+
+    <option value="Mountain" data-sentence="The mountain stands tall with snow covering its peak.">Mountain</option>
+
+    <option value="Teacher" data-sentence="A teacher helps students learn and grow every day.">Teacher</option>
+
+    <option value="Computer" data-sentence="A computer can process information and solve complex problems.">Computer</option>
+
+    <option value="Music" data-sentence="Music can express emotions and bring people together.">Music</option>
+</select>
+
+<button onclick="speakWord()">Speak Word</button>
+
+<br><br>
+
+<!-- SENTENCE SECTION -->
+<textarea id="sentenceBox" rows="4" cols="40" readonly></textarea>
+
+<button onclick="speakSentence()">Speak Sentence</button>
+
+<br><br>
+
+<a href="index.html">Back to Portfolio</a>
+
+<script src="words.js"></script>
+
+</body>
+</html>
