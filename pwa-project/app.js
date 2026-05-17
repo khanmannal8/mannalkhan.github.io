@@ -1,3 +1,5 @@
+let currentCorrectAnswer = 0;
+
 fetch("topics.json")
   .then(response => response.json())
   .then(data => {
@@ -50,7 +52,7 @@ fetch("topics.json")
 
       `;
 
-      /* OPEN STUDY PANEL */
+      /* OPEN LEARNING PANEL */
 
       card.addEventListener("click", () => {
 
@@ -72,6 +74,24 @@ fetch("topics.json")
 
         document.getElementById("topicDetails")
           .classList.remove("d-none");
+
+        /* RESOURCE LINKS */
+
+        document.getElementById("youtubeLink")
+          .href =
+          `https://www.youtube.com/results?search_query=${subject.title}+computer+science`;
+
+        document.getElementById("googleLink")
+          .href =
+          `https://www.google.com/search?q=${subject.title}+computer+science`;
+
+        document.getElementById("wikiLink")
+          .href =
+          `https://en.wikipedia.org/wiki/${subject.title}`;
+
+        /* QUIZ */
+
+        loadQuiz(subject.title);
 
       });
 
@@ -121,7 +141,7 @@ document.addEventListener("input", function(e) {
 
 });
 
-/* COMPLETE TOPICS */
+/* COMPLETE */
 
 document.addEventListener("click", function(e) {
 
@@ -155,7 +175,7 @@ document.addEventListener("click", function(e) {
 
 });
 
-/* UPDATE PROGRESS */
+/* PROGRESS */
 
 function updateCompletedTopics() {
 
@@ -188,19 +208,19 @@ function getStudyTip(topic) {
 
   if(topic.includes("Algorithms")) {
 
-    return "Practice tracing algorithms step-by-step using visual diagrams.";
+    return "Practice tracing algorithms step-by-step using diagrams.";
 
   }
 
   if(topic.includes("Operating")) {
 
-    return "Focus on understanding process scheduling and memory allocation.";
+    return "Focus on process scheduling and memory management.";
 
   }
 
   if(topic.includes("Networks")) {
 
-    return "Study how packets move through routers and network protocols.";
+    return "Understand how packets move through protocols and routers.";
 
   }
 
@@ -211,6 +231,123 @@ function getStudyTip(topic) {
   }
 
   return "Review notes consistently and practice active recall.";
+
+}
+
+/* QUIZ */
+
+function loadQuiz(topic) {
+
+  document.getElementById("quizPanel")
+    .classList.remove("d-none");
+
+  let question = "";
+  let choices = [];
+  let correct = 0;
+
+  if(topic.includes("Algorithms")) {
+
+    question =
+      "What is the main goal of an algorithm?";
+
+    choices = [
+      "Solve problems step-by-step",
+      "Increase RAM",
+      "Store internet data"
+    ];
+
+    correct = 0;
+
+  }
+
+  else if(topic.includes("Operating")) {
+
+    question =
+      "What does an operating system manage?";
+
+    choices = [
+      "Only graphics",
+      "Hardware and software resources",
+      "Only networking"
+    ];
+
+    correct = 1;
+
+  }
+
+  else if(topic.includes("Networks")) {
+
+    question =
+      "What do computer networks allow?";
+
+    choices = [
+      "Cooling computers",
+      "Drawing graphics",
+      "Communication between devices"
+    ];
+
+    correct = 2;
+
+  }
+
+  else {
+
+    question =
+      "What is cybersecurity focused on?";
+
+    choices = [
+      "Protecting systems and data",
+      "Increasing storage",
+      "Improving battery life"
+    ];
+
+    correct = 0;
+
+  }
+
+  currentCorrectAnswer = correct;
+
+  document.getElementById("quizQuestion")
+    .innerHTML = question;
+
+  document.getElementById("choice0")
+    .innerHTML = choices[0];
+
+  document.getElementById("choice1")
+    .innerHTML = choices[1];
+
+  document.getElementById("choice2")
+    .innerHTML = choices[2];
+
+  document.getElementById("quizResult")
+    .innerHTML = "";
+
+}
+
+function checkAnswer(choice) {
+
+  const result =
+    document.getElementById("quizResult");
+
+  if(choice === currentCorrectAnswer) {
+
+    result.innerHTML =
+      "Correct! Great job.";
+
+    result.style.color =
+      "#4ade80";
+
+  }
+
+  else {
+
+    result.innerHTML =
+      "Incorrect. Review the topic and try again.";
+
+    result.style.color =
+      "#f87171";
+
+  }
 
 }
 
