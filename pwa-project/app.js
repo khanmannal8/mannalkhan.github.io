@@ -1,7 +1,13 @@
 let currentCorrectAnswer = 0;
 
+let currentDeck = "General Study";
+
+/* LOAD TOPICS */
+
 fetch("topics.json")
+
   .then(response => response.json())
+
   .then(data => {
 
     const container =
@@ -16,33 +22,50 @@ fetch("topics.json")
         "col-md-6 col-lg-4 mb-4";
 
       const isCompleted =
-        localStorage.getItem(subject.title) === "completed";
+        localStorage.getItem(subject.title)
+        === "completed";
 
       card.innerHTML = `
 
         <div class="card h-100 topic-card">
 
-          <img src="${subject.image}"
-               class="card-img-top">
+          <img
+            src="${subject.image}"
+            class="card-img-top"
+          >
 
           <div class="card-body">
 
-            <h5>${subject.title}</h5>
+            <h5>
 
-            <p>${subject.description}</p>
+              ${subject.title}
+
+            </h5>
+
+            <p>
+
+              ${subject.description}
+
+            </p>
 
             <audio controls class="w-100">
 
-              <source src="${subject.audio}"
-                      type="audio/mpeg">
+              <source
+                src="${subject.audio}"
+                type="audio/mpeg"
+              >
 
             </audio>
 
             <button
               class="btn mt-3 complete-btn
-              ${isCompleted ? "btn-secondary" : "btn-success"}">
+              ${isCompleted
+                ? "btn-secondary"
+                : "btn-success"}">
 
-              ${isCompleted ? "Completed ✓" : "Mark Complete"}
+              ${isCompleted
+                ? "Completed ✓"
+                : "Mark Complete"}
 
             </button>
 
@@ -52,42 +75,60 @@ fetch("topics.json")
 
       `;
 
-      /* OPEN LEARNING PANEL */
+      /* CLICK CARD */
 
       card.addEventListener("click", () => {
 
-        document.getElementById("currentTopic")
-          .innerHTML =
-          `Currently Studying: ${subject.title}`;
+        document.getElementById(
+          "currentTopic"
+        ).innerHTML =
+        `Currently Studying: ${subject.title}`;
 
-        document.getElementById("detailTitle")
-          .innerHTML =
-          subject.title;
+        document.getElementById(
+          "detailTitle"
+        ).innerHTML =
+        subject.title;
 
-        document.getElementById("detailDescription")
-          .innerHTML =
-          subject.description;
+        document.getElementById(
+          "detailDescription"
+        ).innerHTML =
+        subject.description;
 
-        document.getElementById("studyTip")
-          .innerHTML =
-          getStudyTip(subject.title);
+        document.getElementById(
+          "studyTip"
+        ).innerHTML =
+        getStudyTip(subject.title);
 
-        document.getElementById("topicDetails")
-          .classList.remove("d-none");
+        document.getElementById(
+          "studySummary"
+        ).innerHTML =
+        generateSummary(subject.title);
+
+        document.getElementById(
+          "difficultyBadge"
+        ).innerHTML =
+        getDifficulty(subject.title);
+
+        document.getElementById(
+          "topicDetails"
+        ).classList.remove("d-none");
 
         /* RESOURCE LINKS */
 
-        document.getElementById("youtubeLink")
-          .href =
-          `https://www.youtube.com/results?search_query=${subject.title}+computer+science`;
+        document.getElementById(
+          "youtubeLink"
+        ).href =
+        `https://www.youtube.com/results?search_query=${subject.title}+computer+science`;
 
-        document.getElementById("googleLink")
-          .href =
-          `https://www.google.com/search?q=${subject.title}+computer+science`;
+        document.getElementById(
+          "googleLink"
+        ).href =
+        `https://www.google.com/search?q=${subject.title}+computer+science`;
 
-        document.getElementById("wikiLink")
-          .href =
-          `https://en.wikipedia.org/wiki/${subject.title}`;
+        document.getElementById(
+          "wikiLink"
+        ).href =
+        `https://en.wikipedia.org/wiki/${subject.title}`;
 
         /* QUIZ */
 
@@ -105,89 +146,108 @@ fetch("topics.json")
 
   });
 
-/* SEARCH */
+/* SEARCH TOPICS */
 
-document.addEventListener("input", function(e) {
+document.addEventListener(
+  "input",
+  function(e) {
 
-  if(e.target.id === "searchInput") {
+    if(e.target.id === "searchInput") {
 
-    const cards =
-      document.querySelectorAll(".topic-card");
+      const cards =
+        document.querySelectorAll(
+          ".topic-card"
+        );
 
-    cards.forEach(card => {
+      cards.forEach(card => {
 
-      const text =
-        card.innerText.toLowerCase();
+        const text =
+          card.innerText.toLowerCase();
 
-      if(
-        text.includes(
-          e.target.value.toLowerCase()
-        )
-      ) {
+        if(
+          text.includes(
+            e.target.value.toLowerCase()
+          )
+        ) {
 
-        card.parentElement.style.display =
-          "block";
+          card.parentElement.style.display =
+            "block";
 
-      } else {
+        }
 
-        card.parentElement.style.display =
-          "none";
+        else {
 
-      }
+          card.parentElement.style.display =
+            "none";
 
-    });
+        }
 
-  }
+      });
 
-});
-
-/* COMPLETE */
-
-document.addEventListener("click", function(e) {
-
-  if(e.target.classList.contains("complete-btn")) {
-
-    e.stopPropagation();
-
-    const topic =
-      e.target.parentElement
-        .querySelector("h5").innerText;
-
-    localStorage.setItem(
-      topic,
-      "completed"
-    );
-
-    e.target.innerHTML =
-      "Completed ✓";
-
-    e.target.classList.remove(
-      "btn-success"
-    );
-
-    e.target.classList.add(
-      "btn-secondary"
-    );
-
-    updateCompletedTopics();
+    }
 
   }
+);
 
-});
+/* COMPLETE TOPICS */
 
-/* PROGRESS */
+document.addEventListener(
+  "click",
+  function(e) {
+
+    if(
+      e.target.classList.contains(
+        "complete-btn"
+      )
+    ) {
+
+      e.stopPropagation();
+
+      const topic =
+        e.target.parentElement
+          .querySelector("h5")
+          .innerText;
+
+      localStorage.setItem(
+        topic,
+        "completed"
+      );
+
+      e.target.innerHTML =
+        "Completed ✓";
+
+      e.target.classList.remove(
+        "btn-success"
+      );
+
+      e.target.classList.add(
+        "btn-secondary"
+      );
+
+      updateCompletedTopics();
+
+    }
+
+  }
+);
+
+/* UPDATE PROGRESS */
 
 function updateCompletedTopics() {
 
   const buttons =
-    document.querySelectorAll(".complete-btn");
+    document.querySelectorAll(
+      ".complete-btn"
+    );
 
   let count = 0;
 
   buttons.forEach(button => {
 
     if(
-      button.innerHTML.includes("Completed")
+      button.innerHTML.includes(
+        "Completed"
+      )
     ) {
 
       count++;
@@ -196,9 +256,10 @@ function updateCompletedTopics() {
 
   });
 
-  document.getElementById("progressText")
-    .innerHTML =
-    `Completed Topics: ${count}`;
+  document.getElementById(
+    "progressText"
+  ).innerHTML =
+  `Completed Topics: ${count}`;
 
 }
 
@@ -208,52 +269,153 @@ function getStudyTip(topic) {
 
   if(topic.includes("Algorithms")) {
 
-    return "Practice tracing algorithms step-by-step using diagrams.";
+    return `
+      Practice tracing algorithms
+      step-by-step using diagrams.
+    `;
 
   }
 
   if(topic.includes("Operating")) {
 
-    return "Focus on process scheduling and memory management.";
+    return `
+      Focus on process scheduling
+      and memory management.
+    `;
 
   }
 
   if(topic.includes("Networks")) {
 
-    return "Understand how packets move through protocols and routers.";
+    return `
+      Understand how packets move
+      through routers and protocols.
+    `;
 
   }
 
   if(topic.includes("Cyber")) {
 
-    return "Focus on encryption, authentication, and attack prevention.";
+    return `
+      Focus on encryption,
+      authentication,
+      and attack prevention.
+    `;
 
   }
 
-  return "Review notes consistently and practice active recall.";
+  return `
+    Review notes consistently
+    and practice active recall.
+  `;
 
 }
 
-/* QUIZ */
+/* AI SUMMARIES */
+
+function generateSummary(topic) {
+
+  if(topic.includes("Algorithms")) {
+
+    return `
+      Algorithms solve problems
+      using logical step-by-step
+      procedures. Focus on sorting,
+      searching, recursion,
+      and optimization.
+    `;
+
+  }
+
+  if(topic.includes("Operating")) {
+
+    return `
+      Operating systems manage
+      memory, scheduling,
+      processes, and hardware
+      resources.
+    `;
+
+  }
+
+  if(topic.includes("Networks")) {
+
+    return `
+      Computer networks allow
+      devices to communicate
+      through routing,
+      DNS, and protocols.
+    `;
+
+  }
+
+  if(topic.includes("Cyber")) {
+
+    return `
+      Cybersecurity protects systems
+      and data using encryption,
+      authentication,
+      and threat prevention.
+    `;
+
+  }
+
+  return `
+    Review the major concepts
+    and practice active recall.
+  `;
+
+}
+
+/* DIFFICULTY */
+
+function getDifficulty(topic) {
+
+  if(topic.includes("Algorithms")) {
+
+    return "Advanced";
+
+  }
+
+  if(topic.includes("Operating")) {
+
+    return "Intermediate";
+
+  }
+
+  if(topic.includes("Networks")) {
+
+    return "Intermediate";
+
+  }
+
+  return "Beginner";
+
+}
+
+/* QUIZZES */
 
 function loadQuiz(topic) {
 
-  document.getElementById("quizPanel")
-    .classList.remove("d-none");
+  document.getElementById(
+    "quizPanel"
+  ).classList.remove("d-none");
 
   let question = "";
+
   let choices = [];
+
   let correct = 0;
 
   if(topic.includes("Algorithms")) {
 
     question =
-      "What is the main goal of an algorithm?";
+      "What is the primary goal of an algorithm?";
 
     choices = [
       "Solve problems step-by-step",
-      "Increase RAM",
-      "Store internet data"
+      "Increase storage",
+      "Create graphics"
     ];
 
     correct = 0;
@@ -268,7 +430,7 @@ function loadQuiz(topic) {
     choices = [
       "Only graphics",
       "Hardware and software resources",
-      "Only networking"
+      "Only internet access"
     ];
 
     correct = 1;
@@ -281,24 +443,24 @@ function loadQuiz(topic) {
       "What do computer networks allow?";
 
     choices = [
-      "Cooling computers",
-      "Drawing graphics",
-      "Communication between devices"
+      "Cooling systems",
+      "Communication between devices",
+      "Battery optimization"
     ];
 
-    correct = 2;
+    correct = 1;
 
   }
 
   else {
 
     question =
-      "What is cybersecurity focused on?";
+      "What is cybersecurity mainly focused on?";
 
     choices = [
       "Protecting systems and data",
-      "Increasing storage",
-      "Improving battery life"
+      "Increasing RAM",
+      "Improving graphics"
     ];
 
     correct = 0;
@@ -307,27 +469,36 @@ function loadQuiz(topic) {
 
   currentCorrectAnswer = correct;
 
-  document.getElementById("quizQuestion")
-    .innerHTML = question;
+  document.getElementById(
+    "quizQuestion"
+  ).innerHTML = question;
 
-  document.getElementById("choice0")
-    .innerHTML = choices[0];
+  document.getElementById(
+    "choice0"
+  ).innerHTML = choices[0];
 
-  document.getElementById("choice1")
-    .innerHTML = choices[1];
+  document.getElementById(
+    "choice1"
+  ).innerHTML = choices[1];
 
-  document.getElementById("choice2")
-    .innerHTML = choices[2];
+  document.getElementById(
+    "choice2"
+  ).innerHTML = choices[2];
 
-  document.getElementById("quizResult")
-    .innerHTML = "";
+  document.getElementById(
+    "quizResult"
+  ).innerHTML = "";
 
 }
+
+/* CHECK ANSWERS */
 
 function checkAnswer(choice) {
 
   const result =
-    document.getElementById("quizResult");
+    document.getElementById(
+      "quizResult"
+    );
 
   if(choice === currentCorrectAnswer) {
 
@@ -378,7 +549,7 @@ function startTimer() {
       clearInterval(countdown);
 
       timerDisplay.innerHTML =
-        "Study Session Complete! Take a short break.";
+        "Study Session Complete!";
 
     }
 
@@ -388,28 +559,84 @@ function startTimer() {
 
 /* NOTES */
 
-document.addEventListener("input", function(e) {
+document.addEventListener(
+  "input",
+  function(e) {
 
-  if(e.target.id === "studyNotes") {
+    if(e.target.id === "studyNotes") {
 
-    localStorage.setItem(
-      "studyNotes",
-      e.target.value
-    );
+      localStorage.setItem(
+
+        `notes-${currentDeck}`,
+
+        e.target.value
+
+      );
+
+    }
 
   }
-
-});
+);
 
 function loadSavedNotes() {
 
   const savedNotes =
-    localStorage.getItem("studyNotes");
+    localStorage.getItem(
+      `notes-${currentDeck}`
+    );
 
   if(savedNotes) {
 
-    document.getElementById("studyNotes").value =
-      savedNotes;
+    document.getElementById(
+      "studyNotes"
+    ).value =
+    savedNotes;
+
+  }
+
+}
+
+/* DECKS */
+
+function openDeck(deckName) {
+
+  currentDeck = deckName;
+
+  document.getElementById(
+    "notesDeckTitle"
+  ).innerHTML =
+  `Notes For: ${deckName}`;
+
+  const savedDeckNotes =
+    localStorage.getItem(
+      `notes-${deckName}`
+    );
+
+  document.getElementById(
+    "studyNotes"
+  ).value =
+  savedDeckNotes || "";
+
+}
+
+/* RESOURCE SEARCH */
+
+function searchResources() {
+
+  const query =
+    document.getElementById(
+      "resourceSearch"
+    ).value;
+
+  if(query.trim() !== "") {
+
+    window.open(
+
+      `https://www.google.com/search?q=${query}+computer+science+tutorial`,
+
+      "_blank"
+
+    );
 
   }
 
@@ -427,13 +654,15 @@ function resetProgress() {
 
 /* SERVICE WORKER */
 
-if ("serviceWorker" in navigator) {
+if("serviceWorker" in navigator) {
 
   navigator.serviceWorker
     .register("./service-worker.js")
 
     .then(() =>
-      console.log("Service Worker Registered")
+      console.log(
+        "Service Worker Registered"
+      )
     );
 
 }

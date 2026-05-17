@@ -51,12 +51,12 @@
 
         A productivity-focused Progressive Web App designed
         to help students review computer science concepts,
-        stay organized, test understanding, and continue
+        organize notes, test understanding, and continue
         learning through interactive study tools.
 
       </p>
 
-      <!-- HOW IT WORKS -->
+      <!-- HOW BOX -->
 
       <div class="how-box mt-4">
 
@@ -68,11 +68,10 @@
 
         <p>
 
-          Browse computer science topics, listen to quick
-          audio summaries, complete mini quizzes, track
-          completed study sessions, save persistent study
-          notes, and stay focused using the built-in
-          Pomodoro study timer.
+          Browse curated computer science study decks,
+          save notes to specific topics, complete quizzes,
+          search learning resources, and stay productive
+          using the built-in Pomodoro study timer.
 
         </p>
 
@@ -80,16 +79,81 @@
 
     </div>
 
-    <!-- SEARCH -->
+    <!-- TOP DASHBOARD GRID -->
 
-    <div class="mb-4">
+    <div class="row g-4 mb-5">
 
-      <input
-        type="text"
-        id="searchInput"
-        class="form-control"
-        placeholder="Search topics..."
-      >
+      <!-- SEARCH -->
+
+      <div class="col-lg-6">
+
+        <div class="card p-4 h-100">
+
+          <h3>
+
+            Search Topics
+
+          </h3>
+
+          <p class="card-text">
+
+            Quickly search study topics and resources.
+
+          </p>
+
+          <input
+            type="text"
+            id="searchInput"
+            class="form-control mt-3"
+            placeholder="Search topics..."
+          >
+
+        </div>
+
+      </div>
+
+      <!-- RESOURCE SEARCH -->
+
+      <div class="col-lg-6">
+
+        <div class="card p-4 h-100">
+
+          <h3>
+
+            Search Learning Resources
+
+          </h3>
+
+          <p class="card-text">
+
+            Search tutorials, documentation,
+            and explanations.
+
+          </p>
+
+          <div class="input-group mt-3">
+
+            <input
+              type="text"
+              id="resourceSearch"
+              class="form-control"
+              placeholder="Search computer science..."
+            >
+
+            <button
+              class="btn btn-primary"
+              onclick="searchResources()"
+            >
+
+              Search
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
@@ -126,6 +190,64 @@
 
     </div>
 
+    <!-- DECKS -->
+
+    <div class="card p-4 mb-5">
+
+      <h3>
+
+        Premade Study Decks
+
+      </h3>
+
+      <p class="card-text">
+
+        Browse curated learning paths.
+
+      </p>
+
+      <div class="d-flex flex-wrap gap-3 mt-3">
+
+        <button
+          class="btn btn-outline-info"
+          onclick="openDeck('Algorithms')"
+        >
+
+          Algorithms Deck
+
+        </button>
+
+        <button
+          class="btn btn-outline-info"
+          onclick="openDeck('Operating Systems')"
+        >
+
+          Operating Systems Deck
+
+        </button>
+
+        <button
+          class="btn btn-outline-info"
+          onclick="openDeck('Networks')"
+        >
+
+          Networks Deck
+
+        </button>
+
+        <button
+          class="btn btn-outline-info"
+          onclick="openDeck('Cybersecurity')"
+        >
+
+          Cybersecurity Deck
+
+        </button>
+
+      </div>
+
+    </div>
+
     <!-- TIMER -->
 
     <div class="card p-4 mb-5 text-center">
@@ -138,7 +260,7 @@
 
       <p class="card-text">
 
-        Stay focused using structured 25-minute study sessions.
+        Stay focused using structured 25-minute sessions.
 
       </p>
 
@@ -164,6 +286,12 @@
         Persistent Study Notes
 
       </h3>
+
+      <h5 id="notesDeckTitle">
+
+        Notes For: General Study
+
+      </h5>
 
       <p class="card-text">
 
@@ -191,7 +319,34 @@
 
       <p id="detailDescription"></p>
 
-      <div class="alert alert-info mt-3">
+      <div class="alert alert-warning mt-4">
+
+        <h5>
+
+          AI Study Summary
+
+        </h5>
+
+        <p id="studySummary"></p>
+
+      </div>
+
+      <div class="mt-4">
+
+        <h5>
+
+          Difficulty Level
+
+        </h5>
+
+        <span
+          id="difficultyBadge"
+          class="badge bg-primary p-2"
+        ></span>
+
+      </div>
+
+      <div class="alert alert-info mt-4">
 
         <h5>
 
@@ -203,7 +358,7 @@
 
       </div>
 
-      <!-- RESOURCE LINKS -->
+      <!-- LINKS -->
 
       <div class="mt-4">
 
@@ -251,7 +406,7 @@
 
     </div>
 
-    <!-- QUIZ PANEL -->
+    <!-- QUIZ -->
 
     <div
       id="quizPanel"
