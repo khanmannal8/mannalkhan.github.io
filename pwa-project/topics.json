@@ -1,0 +1,31 @@
+{
+  "subjects": [
+    {
+      "title": "Algorithms",
+      "description": "Learn sorting, searching, recursion, and optimization techniques.",
+      "image": "images/algorithms.jpg",
+      "audio": "audio/algorithms.mp3"
+    },
+
+    {
+      "title": "Operating Systems",
+      "description": "Understand memory management, scheduling, and processes.",
+      "image": "images/os.jpg",
+      "audio": "audio/os.mp3"
+    },
+
+    {
+      "title": "Computer Networks",
+      "description": "Explore protocols, routing, DNS, and internet communication.",
+      "image": "images/networks.jpg",
+      "audio": "audio/networks.mp3"
+    },
+
+    {
+      "title": "Cybersecurity",
+      "description": "Study encryption, authentication, and digital protection systems.",
+      "image": "images/security.jpg",
+      "audio": "audio/security.mp3"
+    }
+  ]
+}
