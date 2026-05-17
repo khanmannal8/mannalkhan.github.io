@@ -3,7 +3,8 @@ body {
   background:
     linear-gradient(
       135deg,
-      #1e293b,
+      #140f2d,
+      #1e1b4b,
       #0f172a
     );
 
@@ -15,12 +16,17 @@ body {
 
 }
 
+/* NAVBAR */
+
 .navbar {
 
   background:
-    rgba(15,23,42,0.7);
+    rgba(20,15,45,0.75);
 
   backdrop-filter: blur(12px);
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.06);
 
 }
 
@@ -28,7 +34,11 @@ body {
 
   font-weight: 700;
 
+  color: #f8fafc !important;
+
 }
+
+/* HEADINGS */
 
 h1,
 h2,
@@ -36,7 +46,7 @@ h3,
 h4,
 h5 {
 
-  color: white !important;
+  color: #ffffff !important;
 
 }
 
@@ -50,7 +60,7 @@ h2 {
 
 .hero-text {
 
-  color: #cbd5e1;
+  color: #d8d4fe;
 
   max-width: 900px;
 
@@ -58,36 +68,61 @@ h2 {
 
   line-height: 1.8;
 
+  font-size: 1.1rem;
+
 }
+
+/* HOW BOX */
 
 .how-box {
 
   background:
-    rgba(255,255,255,0.05);
-
-  padding: 30px;
-
-  border-radius: 24px;
-
-}
-
-.how-box p {
-
-  color: #e2e8f0;
-
-}
-
-.card {
-
-  background:
-    rgba(30,41,59,0.7) !important;
+    linear-gradient(
+      to right,
+      rgba(91,33,182,0.18),
+      rgba(30,27,75,0.35)
+    );
 
   border:
     1px solid rgba(255,255,255,0.08);
 
   border-radius: 24px;
 
+  padding: 30px;
+
+  backdrop-filter: blur(12px);
+
+}
+
+.how-box p {
+
+  color: #e9d5ff;
+
+}
+
+/* CARDS */
+
+.card {
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(30,27,75,0.85),
+      rgba(15,23,42,0.9)
+    ) !important;
+
+  border:
+    1px solid rgba(255,255,255,0.06);
+
+  border-radius: 24px;
+
   backdrop-filter: blur(18px);
+
+  box-shadow:
+    0px 10px 35px rgba(0,0,0,0.25);
+
+  transition:
+    all 0.3s ease;
 
 }
 
@@ -95,9 +130,12 @@ h2 {
 
   transform: translateY(-5px);
 
-  transition: 0.3s ease;
+  box-shadow:
+    0px 15px 40px rgba(168,85,247,0.2);
 
 }
+
+/* CARD IMAGES */
 
 .card img {
 
@@ -105,7 +143,13 @@ h2 {
 
   object-fit: cover;
 
+  border-top-left-radius: 24px;
+
+  border-top-right-radius: 24px;
+
 }
+
+/* CARD TEXT */
 
 .card p,
 #detailDescription,
@@ -115,45 +159,65 @@ h2 {
 
   color: #e2e8f0 !important;
 
-  line-height: 1.7;
+  line-height: 1.8;
+
+  font-size: 1rem;
 
 }
 
 .card-body h5 {
 
-  color: #93c5fd !important;
+  color: #c4b5fd !important;
+
+  font-weight: 700;
 
 }
 
+/* SEARCH + TEXTAREAS */
+
 #searchInput,
 #resourceSearch,
-textarea {
+textarea,
+#goalInput {
 
   background:
-    rgba(15,23,42,0.7) !important;
+    rgba(15,23,42,0.75) !important;
 
   color: white !important;
 
   border:
-    1px solid rgba(255,255,255,0.1) !important;
+    1px solid rgba(196,181,253,0.25) !important;
 
   border-radius: 16px;
+
+  padding: 14px;
 
 }
 
 textarea {
 
-  padding: 15px;
+  min-height: 220px;
 
 }
+
+#searchInput::placeholder,
+#resourceSearch::placeholder,
+textarea::placeholder,
+#goalInput::placeholder {
+
+  color: #a1a1aa !important;
+
+}
+
+/* BUTTONS */
 
 .btn-primary {
 
   background:
     linear-gradient(
       to right,
-      #3b82f6,
-      #2563eb
+      #8b5cf6,
+      #7c3aed
     ) !important;
 
   border: none;
@@ -162,26 +226,108 @@ textarea {
 
 }
 
-.btn-danger,
+.btn-danger {
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      to right,
+      #ef4444,
+      #dc2626
+    );
+
+  border: none;
+
+}
+
 .btn-outline-info {
 
   border-radius: 14px;
 
+  border:
+    1px solid #c4b5fd;
+
+  color: #e9d5ff;
+
 }
+
+.btn-outline-info:hover {
+
+  background:
+    rgba(168,85,247,0.2);
+
+  color: white;
+
+}
+
+/* DASHBOARD */
 
 .dashboard {
 
   background:
     linear-gradient(
       to right,
-      rgba(59,130,246,0.12),
-      rgba(147,197,253,0.05)
+      rgba(91,33,182,0.2),
+      rgba(30,27,75,0.4)
     );
 
 }
 
+/* AI SUMMARY FIX */
+
+.alert-warning {
+
+  background:
+    rgba(91,33,182,0.18) !important;
+
+  border:
+    1px solid rgba(196,181,253,0.15);
+
+  color: white !important;
+
+}
+
+.alert-warning h5,
+.alert-warning p {
+
+  color: #f8fafc !important;
+
+}
+
+/* STUDY TIP FIX */
+
+.alert-info {
+
+  background:
+    rgba(59,130,246,0.12) !important;
+
+  border:
+    1px solid rgba(147,197,253,0.18);
+
+}
+
+.alert-info h5,
+.alert-info p {
+
+  color: #f8fafc !important;
+
+}
+
+/* FOOTER */
+
 footer {
 
-  color: #94a3b8;
+  color: #a1a1aa;
+
+}
+
+/* AUDIO */
+
+audio {
+
+  margin-top: 15px;
+
+  width: 100%;
 
 }

@@ -1,4 +1,4 @@
-const CACHE_NAME = "prepsync-v2";
+const CACHE_NAME = "prepsync-v3";
 
 const urlsToCache = [
 
@@ -9,14 +9,19 @@ const urlsToCache = [
   "./topics.json",
 
   "./images/algorithms.jpg",
-  "./images/operating-systems.jpg",
+  "./images/os.jpg",
   "./images/networks.jpg",
-  "./images/cybersecurity.jpg",
+  "./images/security.jpg",
   "./images/ai.jpg",
   "./images/cloud.jpg",
   "./images/databases.jpg",
   "./images/software.jpg",
+  "./images/icon.png",
 
+  "./audio/algorithms.mp3",
+  "./audio/os.mp3",
+  "./audio/networks.mp3",
+  "./audio/security.mp3",
   "./audio/study-audio.mp3"
 
 ];
