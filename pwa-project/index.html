@@ -41,6 +41,20 @@
 
       <p>Study smarter. Anywhere. Anytime.</p>
 
+      <div class="alert alert-primary mt-4">
+
+        <h5>How PrepSync Works</h5>
+
+        <p>
+
+          Browse computer science topics, listen to quick audio summaries,
+          track completed study sessions, save study notes, and stay focused
+          using the built-in Pomodoro study timer.
+
+        </p>
+
+      </div>
+
     </div>
 
     <!-- SEARCH BAR -->
@@ -56,7 +70,7 @@
 
     </div>
 
-    <!-- PROGRESS TRACKER -->
+    <!-- PROGRESS -->
 
     <div class="text-center mb-4">
 
@@ -66,9 +80,21 @@
 
       </h4>
 
+      <h5 id="currentTopic" class="mt-3">
+
+        Currently Studying: None
+
+      </h5>
+
+      <h5 class="mt-2">
+
+        Daily Goal: Complete 2 Topics
+
+      </h5>
+
     </div>
 
-    <!-- STUDY TIMER -->
+    <!-- TIMER -->
 
     <div class="text-center mb-5">
 
@@ -85,7 +111,31 @@
 
     </div>
 
-    <!-- DYNAMIC TOPIC CARDS -->
+    <!-- NOTES -->
+
+    <div class="card p-4 mb-5">
+
+      <h4>Study Notes</h4>
+
+      <textarea
+        id="studyNotes"
+        class="form-control mb-3"
+        rows="5"
+        placeholder="Write study notes here..."
+      ></textarea>
+
+      <button
+        class="btn btn-primary"
+        onclick="saveNotes()"
+      >
+
+        Save Notes
+
+      </button>
+
+    </div>
+
+    <!-- TOPIC CARDS -->
 
     <div class="row"
          id="topicsContainer">

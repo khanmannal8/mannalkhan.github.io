@@ -1,3 +1,5 @@
+const subjects = [];
+
 fetch("topics.json")
   .then(response => response.json())
   .then(data => {
@@ -5,9 +7,9 @@ fetch("topics.json")
     const container =
       document.getElementById("topicsContainer");
 
-    let completedCount = 0;
-
     data.subjects.forEach(subject => {
+
+      subjects.push(subject);
 
       const card =
         document.createElement("div");
@@ -18,9 +20,15 @@ fetch("topics.json")
       const isCompleted =
         localStorage.getItem(subject.title) === "completed";
 
-      if (isCompleted) {
-        completedCount++;
-      }
+      const buttonText =
+        isCompleted
+        ? "Completed ✓"
+        : "Mark Complete";
+
+      const buttonClass =
+        isCompleted
+        ? "btn-secondary"
+        : "btn-success";
 
       card.innerHTML = `
 
@@ -43,10 +51,9 @@ fetch("topics.json")
             </audio>
 
             <button
-              class="btn mt-3 complete-btn
-              ${isCompleted ? "btn-secondary" : "btn-success"}">
+              class="btn mt-3 complete-btn ${buttonClass}">
 
-              ${isCompleted ? "Completed ✓" : "Mark Complete"}
+              ${buttonText}
 
             </button>
 
@@ -60,46 +67,67 @@ fetch("topics.json")
 
     });
 
-    updateProgress(completedCount);
+    updateCompletedTopics();
+
+    loadSavedNotes();
 
   });
 
-/* SEARCH FUNCTIONALITY */
+/* SEARCH */
 
-const searchInput =
-  document.getElementById("searchInput");
+document.addEventListener("input", function(e) {
 
-searchInput.addEventListener("input", e => {
+  if(e.target.id === "searchInput") {
 
-  const cards =
-    document.querySelectorAll(".card");
+    const cards =
+      document.querySelectorAll(".card");
 
-  cards.forEach(card => {
+    cards.forEach(card => {
 
-    const title =
-      card.innerText.toLowerCase();
+      const title =
+        card.innerText.toLowerCase();
 
-    if(title.includes(
-      e.target.value.toLowerCase()
-    )) {
+      if(
+        title.includes(
+          e.target.value.toLowerCase()
+        )
+      ) {
 
-      card.parentElement.style.display =
-        "block";
+        card.parentElement.style.display =
+          "block";
 
-    } else {
+      } else {
 
-      card.parentElement.style.display =
-        "none";
+        card.parentElement.style.display =
+          "none";
 
-    }
+      }
 
-  });
+    });
+
+  }
 
 });
 
-/* COMPLETE BUTTONS */
+/* CARD INTERACTION */
 
 document.addEventListener("click", function(e) {
+
+  /* CURRENT TOPIC */
+
+  if(e.target.closest(".card")) {
+
+    const topic =
+      e.target.closest(".card")
+        .querySelector("h5").innerText;
+
+    document.getElementById("currentTopic")
+      .innerHTML =
+      `Currently Studying: ${topic}`;
+
+  }
+
+  /* COMPLETE BUTTON */
 
   if(e.target.classList.contains("complete-btn")) {
 
@@ -107,27 +135,21 @@ document.addEventListener("click", function(e) {
       e.target.parentElement
         .querySelector("h5").innerText;
 
-    if(
-      e.target.innerHTML === "Mark Complete"
-    ) {
+    localStorage.setItem(
+      topic,
+      "completed"
+    );
 
-      localStorage.setItem(
-        topic,
-        "completed"
-      );
+    e.target.innerHTML =
+      "Completed ✓";
 
-      e.target.innerHTML =
-        "Completed ✓";
+    e.target.classList.remove(
+      "btn-success"
+    );
 
-      e.target.classList.remove(
-        "btn-success"
-      );
-
-      e.target.classList.add(
-        "btn-secondary"
-      );
-
-    }
+    e.target.classList.add(
+      "btn-secondary"
+    );
 
     updateCompletedTopics();
 
@@ -135,7 +157,7 @@ document.addEventListener("click", function(e) {
 
 });
 
-/* UPDATE PROGRESS */
+/* PROGRESS */
 
 function updateCompletedTopics() {
 
@@ -146,17 +168,15 @@ function updateCompletedTopics() {
 
   buttons.forEach(button => {
 
-    if(button.innerHTML.includes("Completed")) {
+    if(
+      button.innerHTML.includes("Completed")
+    ) {
+
       count++;
+
     }
 
   });
-
-  updateProgress(count);
-
-}
-
-function updateProgress(count) {
 
   document.getElementById("progressText")
     .innerHTML =
@@ -164,7 +184,7 @@ function updateProgress(count) {
 
 }
 
-/* STUDY TIMER */
+/* TIMER */
 
 function startTimer() {
 
@@ -196,6 +216,36 @@ function startTimer() {
     }
 
   }, 1000);
+
+}
+
+/* NOTES */
+
+function saveNotes() {
+
+  const notes =
+    document.getElementById("studyNotes").value;
+
+  localStorage.setItem(
+    "studyNotes",
+    notes
+  );
+
+  alert("Notes Saved!");
+
+}
+
+function loadSavedNotes() {
+
+  const savedNotes =
+    localStorage.getItem("studyNotes");
+
+  if(savedNotes) {
+
+    document.getElementById("studyNotes").value =
+      savedNotes;
+
+  }
 
 }
 
