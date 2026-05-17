@@ -1,69 +1,168 @@
-let currentCorrectAnswer = 0;
+<!DOCTYPE html>
+<html lang="en">
 
-let currentDeck = "General Study";
+<head>
 
-let currentSearch = "";
+  <meta charset="UTF-8">
 
-/* LOAD TOPICS */
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-fetch("topics.json")
+  <title>PrepSync</title>
 
-  .then(response => response.json())
+  <link
+    rel="icon"
+    type="image/png"
+    href="images/icon.png"
+  >
 
-  .then(data => {
+  <link
+    rel="manifest"
+    href="manifest.json"
+  >
 
-    const container =
-      document.getElementById("topicsContainer");
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  >
 
-    data.subjects.forEach(subject => {
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
-      const card =
-        document.createElement("div");
+</head>
 
-      card.className =
-        "col-md-6 col-lg-4 mb-4";
+<body>
 
-      const isCompleted =
-        localStorage.getItem(subject.title)
-        === "completed";
+  <!-- NAVBAR -->
 
-      card.innerHTML = `
+  <nav class="navbar navbar-dark px-4">
 
-        <div class="card h-100 topic-card">
+    <h1>
 
-          <img
-            src="${subject.image}"
-            class="card-img-top"
+      PrepSync
+
+    </h1>
+
+  </nav>
+
+  <!-- MAIN -->
+
+  <div class="container mt-5">
+
+    <!-- HERO -->
+
+    <div class="text-center mb-5">
+
+      <h2>
+
+        Smart CS Study Dashboard
+
+      </h2>
+
+      <p class="hero-text">
+
+        A productivity-focused Progressive Web App
+        designed to help students review computer
+        science concepts, organize notes,
+        complete quizzes, and continue learning.
+
+      </p>
+
+      <div class="how-box mt-4">
+
+        <h4>
+
+          How PrepSync Works
+
+        </h4>
+
+        <p>
+
+          Browse curated computer science study decks,
+          save notes to specific topics,
+          complete quizzes,
+          search learning resources,
+          and stay productive using the
+          built-in Pomodoro study timer.
+
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- TOP GRID -->
+
+    <div class="row g-4 mb-5">
+
+      <!-- SEARCH -->
+
+      <div class="col-lg-6">
+
+        <div class="card p-4 h-100">
+
+          <h3>
+
+            Search Topics
+
+          </h3>
+
+          <p>
+
+            Quickly search topics and resources.
+
+          </p>
+
+          <input
+            type="text"
+            id="searchInput"
+            class="form-control mt-3"
+            placeholder="Search topics..."
           >
 
-          <div class="card-body">
+        </div>
 
-            <h5>
-              ${subject.title}
-            </h5>
+      </div>
 
-            <p>
-              ${subject.description}
-            </p>
+      <!-- RESOURCE SEARCH -->
 
-            <audio controls class="w-100">
+      <div class="col-lg-6">
 
-              <source
-                src="${subject.audio}"
-                type="audio/mpeg"
-              >
+        <div class="card p-4 h-100">
 
-            </audio>
+          <h3>
+
+            Search Learning Resources
+
+          </h3>
+
+          <p>
+
+            Search tutorials,
+            videos,
+            and explanations.
+
+          </p>
+
+          <div class="input-group mt-3">
+
+            <input
+              type="text"
+              id="resourceSearch"
+              class="form-control"
+              placeholder="Search anything..."
+            >
 
             <button
-              class="btn mt-3 complete-btn
-              ${isCompleted
-                ? "btn-secondary"
-                : "btn-success"}">
+              class="btn btn-primary"
+              onclick="searchResources()"
+            >
 
-              ${isCompleted
-                ? "Completed ✓"
-                : "Mark Complete"}
+              Search
 
             </button>
 
@@ -71,720 +170,425 @@ fetch("topics.json")
 
         </div>
 
-      `;
+      </div>
 
-      card.addEventListener("click", () => {
+    </div>
 
-        document.getElementById(
-          "currentTopic"
-        ).innerHTML =
-        `Currently Studying: ${subject.title}`;
+    <!-- RESOURCE PANEL -->
 
-        document.getElementById(
-          "detailTitle"
-        ).innerHTML =
-        subject.title;
+    <div
+      id="resourcePanel"
+      class="card p-4 mb-5 d-none"
+    >
 
-        document.getElementById(
-          "detailDescription"
-        ).innerHTML =
-        subject.description;
+      <div class="d-flex justify-content-between align-items-center">
 
-        document.getElementById(
-          "studySummary"
-        ).innerHTML =
-        generateSummary(subject.title);
+        <h3>
 
-        document.getElementById(
-          "studyTip"
-        ).innerHTML =
-        getStudyTip(subject.title);
+          Learning Resources
 
-        document.getElementById(
-          "topicDetails"
-        ).classList.remove("d-none");
+        </h3>
 
-        loadQuiz(subject.title);
+        <button
+          class="btn btn-danger"
+          onclick="closeResources()"
+        >
 
-      });
+          Close
 
-      container.appendChild(card);
+        </button>
 
-    });
+      </div>
 
-    updateCompletedTopics();
+      <p class="mt-3">
 
-    loadSavedNotes();
-
-    loadGoal();
-
-  });
-
-/* SEARCH TOPICS */
-
-document.addEventListener(
-  "input",
-  function(e) {
-
-    if(e.target.id === "searchInput") {
-
-      const cards =
-        document.querySelectorAll(
-          ".topic-card"
-        );
-
-      cards.forEach(card => {
-
-        const text =
-          card.innerText.toLowerCase();
-
-        if(
-          text.includes(
-            e.target.value.toLowerCase()
-          )
-        ) {
-
-          card.parentElement.style.display =
-            "block";
-
-        }
-
-        else {
-
-          card.parentElement.style.display =
-            "none";
-
-        }
-
-      });
-
-    }
-
-  }
-);
-
-/* COMPLETE */
-
-document.addEventListener(
-  "click",
-  function(e) {
-
-    if(
-      e.target.classList.contains(
-        "complete-btn"
-      )
-    ) {
-
-      e.stopPropagation();
-
-      const topic =
-        e.target.parentElement
-          .querySelector("h5")
-          .innerText;
-
-      localStorage.setItem(
-        topic,
-        "completed"
-      );
-
-      e.target.innerHTML =
-        "Completed ✓";
-
-      e.target.classList.remove(
-        "btn-success"
-      );
-
-      e.target.classList.add(
-        "btn-secondary"
-      );
-
-      updateCompletedTopics();
-
-    }
-
-  }
-);
-
-/* PROGRESS */
-
-function updateCompletedTopics() {
-
-  const buttons =
-    document.querySelectorAll(
-      ".complete-btn"
-    );
-
-  let count = 0;
-
-  buttons.forEach(button => {
-
-    if(
-      button.innerHTML.includes(
-        "Completed"
-      )
-    ) {
-
-      count++;
-
-    }
-
-  });
-
-  document.getElementById(
-    "progressText"
-  ).innerHTML =
-  `Completed Topics: ${count}`;
-
-}
-
-/* GOALS */
-
-function saveGoal() {
-
-  const goal =
-    document.getElementById(
-      "goalInput"
-    ).value;
-
-  localStorage.setItem(
-    "dailyGoal",
-    goal
-  );
-
-  document.getElementById(
-    "goalText"
-  ).innerHTML =
-  `Daily Goal: ${goal} Topics`;
-
-}
-
-function loadGoal() {
-
-  const savedGoal =
-    localStorage.getItem(
-      "dailyGoal"
-    );
-
-  if(savedGoal) {
-
-    document.getElementById(
-      "goalText"
-    ).innerHTML =
-    `Daily Goal: ${savedGoal} Topics`;
-
-  }
-
-}
-
-/* NOTES */
-
-document.addEventListener(
-  "input",
-  function(e) {
-
-    if(e.target.id === "studyNotes") {
-
-      localStorage.setItem(
-
-        `notes-${currentDeck}`,
-
-        e.target.value
-
-      );
-
-    }
-
-  }
-);
-
-function loadSavedNotes() {
-
-  const savedNotes =
-    localStorage.getItem(
-      `notes-${currentDeck}`
-    );
-
-  if(savedNotes) {
-
-    document.getElementById(
-      "studyNotes"
-    ).value =
-    savedNotes;
-
-  }
-
-}
-
-function openDeck(deckName) {
-
-  currentDeck = deckName;
-
-  document.getElementById(
-    "notesDeckTitle"
-  ).innerHTML =
-  `Notes For: ${deckName}`;
-
-  const savedDeckNotes =
-    localStorage.getItem(
-      `notes-${deckName}`
-    );
-
-  document.getElementById(
-    "studyNotes"
-  ).value =
-  savedDeckNotes || "";
-
-}
-
-/* RESOURCE SEARCH */
-
-const learningResources = [
-
-  {
-    title: "Binary Search Tutorial",
-    category: "Algorithms",
-    type: "YouTube",
-    link:
-      "https://www.youtube.com/watch?v=MFhxShGxHWc"
-  },
-
-  {
-    title: "Recursion Explained",
-    category: "Algorithms",
-    type: "Article",
-    link:
-      "https://www.geeksforgeeks.org/recursion/"
-  },
-
-  {
-    title: "Operating Systems Overview",
-    category: "Operating Systems",
-    type: "YouTube",
-    link:
-      "https://www.youtube.com/watch?v=26QPDBe-NB8"
-  },
-
-  {
-    title: "TCP/IP Networking Basics",
-    category: "Networks",
-    type: "Article",
-    link:
-      "https://www.cloudflare.com/learning/ddos/glossary/tcp-ip/"
-  },
-
-  {
-    title: "Cybersecurity Fundamentals",
-    category: "Cybersecurity",
-    type: "YouTube",
-    link:
-      "https://www.youtube.com/watch?v=inWWhr5tnEA"
-  },
-
-  {
-    title: "Machine Learning Crash Course",
-    category: "Artificial Intelligence",
-    type: "YouTube",
-    link:
-      "https://developers.google.com/machine-learning/crash-course"
-  },
-
-  {
-    title: "AWS Cloud Computing Basics",
-    category: "Cloud Computing",
-    type: "Article",
-    link:
-      "https://aws.amazon.com/what-is-cloud-computing/"
-  }
-
-];
-
-function searchResources() {
-
-  const query =
-    document.getElementById(
-      "resourceSearch"
-    ).value.toLowerCase();
-
-  const panel =
-    document.getElementById(
-      "resourcePanel"
-    );
-
-  const results =
-    document.getElementById(
-      "resourceResults"
-    );
-
-  results.innerHTML = "";
-
-  const filtered =
-    learningResources.filter(resource =>
-
-      resource.title
-        .toLowerCase()
-        .includes(query)
-
-      ||
-
-      resource.category
-        .toLowerCase()
-        .includes(query)
-
-    );
-
-  if(filtered.length > 0) {
-
-    panel.classList.remove("d-none");
-
-    filtered.forEach(resource => {
-
-      results.innerHTML += `
-
-        <div class="card p-3 mb-3">
-
-          <h5>
-
-            ${resource.title}
-
-          </h5>
-
-          <p>
-
-            Category:
-            ${resource.category}
-
-          </p>
-
-          <p>
-
-            Resource Type:
-            ${resource.type}
-
-          </p>
-
-          <a
-            href="${resource.link}"
-            target="_blank"
-            class="btn btn-primary"
-          >
-
-            Open Resource
-
-          </a>
-
-        </div>
-
-      `;
-
-    });
-
-  }
-
-  else {
-
-    panel.classList.remove("d-none");
-
-    results.innerHTML = `
-
-      <p>
-
-        No matching resources found.
+        Choose a platform to continue learning.
 
       </p>
 
-    `;
+      <div class="d-flex gap-3 flex-wrap mt-3">
 
-  }
+        <button
+          class="btn btn-outline-info"
+          onclick="showGoogle()"
+        >
 
-}
+          Google
 
-function closeResources() {
+        </button>
 
-  document.getElementById(
-    "resourcePanel"
-  ).classList.add("d-none");
+        <button
+          class="btn btn-outline-danger"
+          onclick="showYouTube()"
+        >
 
-}
+          YouTube
 
-/* QUIZZES */
+        </button>
 
-function loadQuiz(topic) {
+        <button
+          class="btn btn-outline-light"
+          onclick="showWikipedia()"
+        >
 
-  document.getElementById(
-    "quizPanel"
-  ).classList.remove("d-none");
+          Wikipedia
 
-  let question = "";
+        </button>
 
-  let choices = [];
+      </div>
 
-  let correct = 0;
+    </div>
 
-  if(topic.includes("Algorithms")) {
+    <!-- DASHBOARD -->
 
-    question =
-      "What is the main goal of an algorithm?";
+    <div class="dashboard card p-4 mb-5">
 
-    choices = [
-      "Solve problems step-by-step",
-      "Increase storage",
-      "Create graphics"
-    ];
+      <h4 id="progressText">
 
-    correct = 0;
+        Completed Topics: 0
 
-  }
+      </h4>
 
-  else if(topic.includes("Operating")) {
+      <h5
+        id="currentTopic"
+        class="mt-3"
+      >
 
-    question =
-      "What does an operating system manage?";
+        Currently Studying: None
 
-    choices = [
-      "Only internet access",
-      "Hardware and software resources",
-      "Only graphics"
-    ];
+      </h5>
 
-    correct = 1;
+      <!-- GOAL -->
 
-  }
+      <div class="mt-4">
 
-  else {
+        <h5>
 
-    question =
-      "What is cybersecurity focused on?";
+          Set Daily Goal
 
-    choices = [
-      "Increasing RAM",
-      "Protecting systems and data",
-      "Improving graphics"
-    ];
+        </h5>
 
-    correct = 1;
+        <div class="input-group mt-2">
 
-  }
+          <input
+            type="number"
+            id="goalInput"
+            class="form-control"
+            placeholder="Enter topic goal"
+          >
 
-  currentCorrectAnswer = correct;
+          <button
+            class="btn btn-primary"
+            onclick="saveGoal()"
+          >
 
-  document.getElementById(
-    "quizQuestion"
-  ).innerHTML = question;
+            Save Goal
 
-  document.getElementById(
-    "choice0"
-  ).innerHTML = choices[0];
+          </button>
 
-  document.getElementById(
-    "choice1"
-  ).innerHTML = choices[1];
+        </div>
 
-  document.getElementById(
-    "choice2"
-  ).innerHTML = choices[2];
+        <p
+          class="mt-3"
+          id="goalText"
+        >
 
-  document.getElementById(
-    "quizResult"
-  ).innerHTML = "";
+          Daily Goal: 2 Topics
 
-}
+        </p>
 
-function checkAnswer(choice) {
+      </div>
 
-  const result =
-    document.getElementById(
-      "quizResult"
-    );
+      <button
+        class="btn btn-danger mt-4"
+        onclick="resetProgress()"
+      >
 
-  if(choice === currentCorrectAnswer) {
+        Reset Study Progress
 
-    result.innerHTML =
-      "Correct! Great job.";
+      </button>
 
-    result.style.color =
-      "#4ade80";
+    </div>
 
-  }
+    <!-- DECKS -->
 
-  else {
+    <div class="card p-4 mb-5">
 
-    result.innerHTML =
-      "Incorrect. Try again.";
+      <h3>
 
-    result.style.color =
-      "#f87171";
+        Premade Study Decks
 
-  }
+      </h3>
 
-}
+      <p>
 
-/* STUDY TIPS */
+        Browse curated learning paths.
 
-function getStudyTip(topic) {
+      </p>
 
-  return `
-    Review notes consistently
-    and practice active recall.
-  `;
+      <div class="d-flex flex-wrap gap-3 mt-3">
 
-}
+        <button
+          class="btn btn-outline-info"
+          onclick="openDeckModal('Algorithms')"
+        >
 
-/* SUMMARIES */
+          Algorithms
 
-function generateSummary(topic) {
+        </button>
 
-  return `
-    Review the major concepts
-    and reinforce understanding
-    through quizzes and practice.
-  `;
+        <button
+          class="btn btn-outline-info"
+          onclick="openDeckModal('Operating Systems')"
+        >
 
-}
+          Operating Systems
 
-/* TIMER */
+        </button>
 
-function startTimer() {
+        <button
+          class="btn btn-outline-info"
+          onclick="openDeckModal('Networks')"
+        >
 
-  let time = 1500;
+          Networks
 
-  const timerDisplay =
-    document.getElementById("timer");
+        </button>
 
-  const countdown = setInterval(() => {
+        <button
+          class="btn btn-outline-info"
+          onclick="openDeckModal('Cybersecurity')"
+        >
 
-    let minutes =
-      Math.floor(time / 60);
+          Cybersecurity
 
-    let seconds =
-      time % 60;
+        </button>
 
-    timerDisplay.innerHTML =
-      `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+        <button
+          class="btn btn-outline-info"
+          onclick="openDeckModal('Artificial Intelligence')"
+        >
 
-    time--;
+          AI
 
-    if(time < 0) {
+        </button>
 
-      clearInterval(countdown);
+        <button
+          class="btn btn-outline-info"
+          onclick="openDeckModal('Cloud Computing')"
+        >
 
-      timerDisplay.innerHTML =
-        "Study Session Complete!";
+          Cloud Computing
 
-    }
+        </button>
 
-  }, 1000);
+      </div>
 
-}
+    </div>
 
-/* RESET */
+    <!-- MODAL -->
 
-function resetProgress() {
+    <div
+      class="modal fade"
+      id="deckModal"
+      tabindex="-1"
+    >
 
-  localStorage.clear();
+      <div class="modal-dialog modal-lg modal-dialog-centered">
 
-  location.reload();
+        <div class="modal-content bg-dark text-light">
 
-}
+          <div class="modal-header border-secondary">
 
-/* MODALS */
+            <h3 id="deckModalTitle"></h3>
 
-function openDeckModal(deckName) {
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
 
-  openDeck(deckName);
+          </div>
 
-  const modal =
-    new bootstrap.Modal(
-      document.getElementById(
-        "deckModal"
-      )
-    );
+          <div class="modal-body">
 
-  document.getElementById(
-    "deckModalTitle"
-  ).innerHTML = deckName;
+            <p id="deckModalDescription"></p>
 
-  let description = "";
+            <div class="mt-4">
 
-  let topics = [];
+              <h5>
 
-  if(deckName === "Algorithms") {
+                Recommended Topics
 
-    description =
-      "Master recursion, sorting, and optimization.";
+              </h5>
 
-    topics = [
-      "Binary Search",
-      "Sorting",
-      "Recursion",
-      "Complexity"
-    ];
+              <ul id="deckTopics"></ul>
 
-  }
+            </div>
 
-  else if(deckName === "Operating Systems") {
+          </div>
 
-    description =
-      "Learn process scheduling and memory management.";
+        </div>
 
-    topics = [
-      "Threads",
-      "Processes",
-      "Scheduling",
-      "Memory"
-    ];
+      </div>
 
-  }
+    </div>
 
-  else {
+    <!-- TIMER -->
 
-    description =
-      "Explore cybersecurity concepts and protection systems.";
+    <div class="card p-4 mb-5 text-center">
 
-    topics = [
-      "Encryption",
-      "Authentication",
-      "Threat Detection"
-    ];
+      <h3>
 
-  }
+        Pomodoro Study Timer
 
-  document.getElementById(
-    "deckModalDescription"
-  ).innerHTML = description;
+      </h3>
 
-  const list =
-    document.getElementById(
-      "deckTopics"
-    );
+      <button
+        class="btn btn-primary mt-3"
+        onclick="startTimer()"
+      >
 
-  list.innerHTML = "";
+        Start Study Session
 
-  topics.forEach(topic => {
+      </button>
 
-    const li =
-      document.createElement("li");
+      <h2
+        id="timer"
+        class="mt-4"
+      ></h2>
 
-    li.innerHTML = topic;
+    </div>
 
-    list.appendChild(li);
+    <!-- NOTES -->
 
-  });
+    <div class="card p-4 mb-5">
 
-  modal.show();
+      <h3>
 
-}
+        Persistent Study Notes
 
-/* SERVICE WORKER */
+      </h3>
 
-if("serviceWorker" in navigator) {
+      <h5 id="notesDeckTitle">
 
-  navigator.serviceWorker
-    .register("./service-worker.js")
+        Notes For: General Study
 
-    .then(() =>
-      console.log(
-        "Service Worker Registered"
-      )
-    );
+      </h5>
 
-}
+      <textarea
+        id="studyNotes"
+        rows="6"
+        class="form-control mt-3"
+        placeholder="Write notes here..."
+      ></textarea>
+
+    </div>
+
+    <!-- TOPIC DETAILS -->
+
+    <div
+      id="topicDetails"
+      class="card p-4 mb-5 d-none"
+    >
+
+      <h2 id="detailTitle"></h2>
+
+      <p id="detailDescription"></p>
+
+      <div class="alert alert-warning mt-4">
+
+        <h5>
+
+          AI Study Summary
+
+        </h5>
+
+        <p id="studySummary"></p>
+
+      </div>
+
+      <div class="alert alert-info mt-4">
+
+        <h5>
+
+          Study Tip
+
+        </h5>
+
+        <p id="studyTip"></p>
+
+      </div>
+
+    </div>
+
+    <!-- QUIZ -->
+
+    <div
+      id="quizPanel"
+      class="card p-4 mb-5 d-none"
+    >
+
+      <h3>
+
+        Quick Knowledge Check
+
+      </h3>
+
+      <p id="quizQuestion"></p>
+
+      <div class="d-grid gap-2">
+
+        <button
+          class="btn btn-outline-light"
+          onclick="checkAnswer(0)"
+          id="choice0"
+        ></button>
+
+        <button
+          class="btn btn-outline-light"
+          onclick="checkAnswer(1)"
+          id="choice1"
+        ></button>
+
+        <button
+          class="btn btn-outline-light"
+          onclick="checkAnswer(2)"
+          id="choice2"
+        ></button>
+
+      </div>
+
+      <h5
+        class="mt-4"
+        id="quizResult"
+      ></h5>
+
+    </div>
+
+    <!-- TOPICS -->
+
+    <div
+      class="row"
+      id="topicsContainer"
+    ></div>
+
+  </div>
+
+  <footer class="text-center mt-5 mb-4">
+
+    <p>
+
+      PrepSync © 2026
+
+    </p>
+
+  </footer>
+
+  <script src="app.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
