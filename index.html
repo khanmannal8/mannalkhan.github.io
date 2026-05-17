@@ -27,8 +27,8 @@
             background:
                 linear-gradient(
                     135deg,
-                    #140f2d,
-                    #1e1b4b,
+                    #120b26,
+                    #1a1440,
                     #0f172a
                 );
 
@@ -44,7 +44,7 @@
 
             text-align: center;
 
-            padding: 80px 20px;
+            padding: 80px 20px 60px;
 
         }
 
@@ -54,20 +54,34 @@
 
             font-weight: 800;
 
+            color: white;
+
         }
 
         .hero p {
 
-            color: #d8d4fe;
+            color: #e9d5ff;
 
             font-size: 1.1rem;
+
+        }
+
+        .section-title {
+
+            font-size: 2.3rem;
+
+            font-weight: 700;
+
+            margin-bottom: 30px;
+
+            color: white;
 
         }
 
         .card {
 
             background:
-                rgba(30,27,75,0.8);
+                rgba(30,27,75,0.95);
 
             border:
                 1px solid rgba(255,255,255,0.08);
@@ -79,7 +93,7 @@
             backdrop-filter: blur(14px);
 
             box-shadow:
-                0px 10px 30px rgba(0,0,0,0.3);
+                0px 10px 30px rgba(0,0,0,0.35);
 
             transition:
                 all 0.3s ease;
@@ -93,7 +107,7 @@
             transform: translateY(-5px);
 
             box-shadow:
-                0px 15px 40px rgba(168,85,247,0.2);
+                0px 15px 40px rgba(168,85,247,0.3);
 
         }
 
@@ -102,6 +116,22 @@
             height: 220px;
 
             object-fit: cover;
+
+        }
+
+        .card-title {
+
+            color: white;
+
+            font-weight: 700;
+
+        }
+
+        .card-text {
+
+            color: #e2e8f0;
+
+            line-height: 1.7;
 
         }
 
@@ -120,13 +150,23 @@
 
         }
 
+        .in-progress {
+
+            background:
+                rgba(251,191,36,0.15);
+
+            border:
+                1px solid rgba(251,191,36,0.3);
+
+        }
+
         footer {
 
             text-align: center;
 
             padding: 50px 0;
 
-            color: #a1a1aa;
+            color: #cbd5e1;
 
         }
 
@@ -148,18 +188,119 @@
 
         <p class="mt-4">
 
-            Brooklyn College Computer Science Student •
-            CISC 3610 Spring 2026 •
-            Web Development & Multimedia Projects
+            Brooklyn College Computer Science Student
 
         </p>
 
         <p>
 
-            Email:
+            CISC 3610 • Spring 2026
+
+        </p>
+
+        <p>
+
             mannnal.khan52@bcmail.cuny.edu
 
         </p>
+
+    </div>
+
+    <!-- HOMEWORK -->
+
+    <div class="container mb-5">
+
+        <h2 class="section-title">
+
+            Homework Assignments
+
+        </h2>
+
+        <div class="row g-4">
+
+            <!-- BOOTSTRAP -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+                    >
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+
+                            Bootstrap Assignment
+
+                        </h5>
+
+                        <p class="card-text">
+
+                            Responsive webpage built
+                            using Bootstrap layout,
+                            grids, and UI components.
+
+                        </p>
+
+                        <a
+                            href="bootstrap.html"
+                            class="btn btn-primary"
+                        >
+
+                            View Assignment
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- WORDS -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935"
+                    >
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+
+                            Words Project
+
+                        </h5>
+
+                        <p class="card-text">
+
+                            Interactive multimedia project
+                            focused on typography,
+                            visuals, and user interaction.
+
+                        </p>
+
+                        <a
+                            href="words.html"
+                            class="btn btn-primary"
+                        >
+
+                            View Assignment
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
@@ -167,9 +308,9 @@
 
     <div class="container mb-5">
 
-        <h2 class="text-center mb-5">
+        <h2 class="section-title">
 
-            Projects
+            Major Projects
 
         </h2>
 
@@ -177,13 +318,12 @@
 
             <!-- CARTOON -->
 
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-4">
 
                 <div class="card">
 
                     <img
                         src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4"
-                        class="card-img-top"
                     >
 
                     <div class="card-body">
@@ -196,8 +336,9 @@
 
                         <p class="card-text">
 
-                            HTML5 Canvas animation project
-                            using JavaScript drawing techniques.
+                            HTML5 Canvas animation
+                            project using JavaScript
+                            drawing and rendering techniques.
 
                         </p>
 
@@ -216,97 +357,14 @@
 
             </div>
 
-            <!-- BOOTSTRAP -->
-
-            <div class="col-md-6 col-lg-3">
-
-                <div class="card">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
-                        class="card-img-top"
-                    >
-
-                    <div class="card-body">
-
-                        <h5 class="card-title">
-
-                            Bootstrap Project
-
-                        </h5>
-
-                        <p class="card-text">
-
-                            Responsive website built using
-                            Bootstrap layout and components.
-
-                        </p>
-
-                        <a
-                            href="bootstrap.html"
-                            class="btn btn-primary"
-                        >
-
-                            View Project
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- WORDS -->
-
-            <div class="col-md-6 col-lg-3">
-
-                <div class="card">
-
-                    <img
-                        src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935"
-                        class="card-img-top"
-                    >
-
-                    <div class="card-body">
-
-                        <h5 class="card-title">
-
-                            Words Project
-
-                        </h5>
-
-                        <p class="card-text">
-
-                            Interactive multimedia web project
-                            focused on creative visual design.
-
-                        </p>
-
-                        <a
-                            href="words.html"
-                            class="btn btn-primary"
-                        >
-
-                            View Project
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
             <!-- PREPSYNC -->
 
-            <div class="col-md-6 col-lg-3">
+            <div class="col-md-6 col-lg-4">
 
                 <div class="card">
 
                     <img
                         src="pwa-project/images/screenshot1.png"
-                        class="card-img-top"
                     >
 
                     <div class="card-body">
@@ -322,7 +380,8 @@
                             Progressive Web App for
                             computer science studying,
                             productivity tracking,
-                            quizzes, and resource searching.
+                            quizzes, notes,
+                            and learning resources.
 
                         </p>
 
@@ -334,6 +393,62 @@
                             View Project
 
                         </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- IN PROGRESS -->
+
+    <div class="container mb-5">
+
+        <h2 class="section-title">
+
+            In Progress
+
+        </h2>
+
+        <div class="row g-4">
+
+            <!-- WICK -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card in-progress">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2"
+                    >
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+
+                            Wick Animation Project
+
+                        </h5>
+
+                        <p class="card-text">
+
+                            Animated multimedia scene
+                            using Wick Editor with layered
+                            motion and tween animation.
+
+                        </p>
+
+                        <button
+                            class="btn btn-warning"
+                        >
+
+                            Currently In Progress
+
+                        </button>
 
                     </div>
 
