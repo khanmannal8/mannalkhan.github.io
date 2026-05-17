@@ -1,5 +1,3 @@
-const subjects = [];
-
 fetch("topics.json")
   .then(response => response.json())
   .then(data => {
@@ -8,8 +6,6 @@ fetch("topics.json")
       document.getElementById("topicsContainer");
 
     data.subjects.forEach(subject => {
-
-      subjects.push(subject);
 
       const card =
         document.createElement("div");
@@ -20,19 +16,9 @@ fetch("topics.json")
       const isCompleted =
         localStorage.getItem(subject.title) === "completed";
 
-      const buttonText =
-        isCompleted
-        ? "Completed ✓"
-        : "Mark Complete";
-
-      const buttonClass =
-        isCompleted
-        ? "btn-secondary"
-        : "btn-success";
-
       card.innerHTML = `
 
-        <div class="card h-100">
+        <div class="card h-100 topic-card">
 
           <img src="${subject.image}"
                class="card-img-top">
@@ -51,9 +37,10 @@ fetch("topics.json")
             </audio>
 
             <button
-              class="btn mt-3 complete-btn ${buttonClass}">
+              class="btn mt-3 complete-btn
+              ${isCompleted ? "btn-secondary" : "btn-success"}">
 
-              ${buttonText}
+              ${isCompleted ? "Completed ✓" : "Mark Complete"}
 
             </button>
 
@@ -62,6 +49,31 @@ fetch("topics.json")
         </div>
 
       `;
+
+      /* OPEN STUDY PANEL */
+
+      card.addEventListener("click", () => {
+
+        document.getElementById("currentTopic")
+          .innerHTML =
+          `Currently Studying: ${subject.title}`;
+
+        document.getElementById("detailTitle")
+          .innerHTML =
+          subject.title;
+
+        document.getElementById("detailDescription")
+          .innerHTML =
+          subject.description;
+
+        document.getElementById("studyTip")
+          .innerHTML =
+          getStudyTip(subject.title);
+
+        document.getElementById("topicDetails")
+          .classList.remove("d-none");
+
+      });
 
       container.appendChild(card);
 
@@ -80,15 +92,15 @@ document.addEventListener("input", function(e) {
   if(e.target.id === "searchInput") {
 
     const cards =
-      document.querySelectorAll(".card");
+      document.querySelectorAll(".topic-card");
 
     cards.forEach(card => {
 
-      const title =
+      const text =
         card.innerText.toLowerCase();
 
       if(
-        title.includes(
+        text.includes(
           e.target.value.toLowerCase()
         )
       ) {
@@ -109,27 +121,13 @@ document.addEventListener("input", function(e) {
 
 });
 
-/* CARD INTERACTION */
+/* COMPLETE TOPICS */
 
 document.addEventListener("click", function(e) {
 
-  /* CURRENT TOPIC */
-
-  if(e.target.closest(".card")) {
-
-    const topic =
-      e.target.closest(".card")
-        .querySelector("h5").innerText;
-
-    document.getElementById("currentTopic")
-      .innerHTML =
-      `Currently Studying: ${topic}`;
-
-  }
-
-  /* COMPLETE BUTTON */
-
   if(e.target.classList.contains("complete-btn")) {
+
+    e.stopPropagation();
 
     const topic =
       e.target.parentElement
@@ -157,7 +155,7 @@ document.addEventListener("click", function(e) {
 
 });
 
-/* PROGRESS */
+/* UPDATE PROGRESS */
 
 function updateCompletedTopics() {
 
@@ -181,6 +179,38 @@ function updateCompletedTopics() {
   document.getElementById("progressText")
     .innerHTML =
     `Completed Topics: ${count}`;
+
+}
+
+/* STUDY TIPS */
+
+function getStudyTip(topic) {
+
+  if(topic.includes("Algorithms")) {
+
+    return "Practice tracing algorithms step-by-step using visual diagrams.";
+
+  }
+
+  if(topic.includes("Operating")) {
+
+    return "Focus on understanding process scheduling and memory allocation.";
+
+  }
+
+  if(topic.includes("Networks")) {
+
+    return "Study how packets move through routers and network protocols.";
+
+  }
+
+  if(topic.includes("Cyber")) {
+
+    return "Focus on encryption, authentication, and attack prevention.";
+
+  }
+
+  return "Review notes consistently and practice active recall.";
 
 }
 
@@ -211,7 +241,7 @@ function startTimer() {
       clearInterval(countdown);
 
       timerDisplay.innerHTML =
-        "Study Session Complete!";
+        "Study Session Complete! Take a short break.";
 
     }
 
@@ -221,19 +251,18 @@ function startTimer() {
 
 /* NOTES */
 
-function saveNotes() {
+document.addEventListener("input", function(e) {
 
-  const notes =
-    document.getElementById("studyNotes").value;
+  if(e.target.id === "studyNotes") {
 
-  localStorage.setItem(
-    "studyNotes",
-    notes
-  );
+    localStorage.setItem(
+      "studyNotes",
+      e.target.value
+    );
 
-  alert("Notes Saved!");
+  }
 
-}
+});
 
 function loadSavedNotes() {
 
@@ -246,6 +275,16 @@ function loadSavedNotes() {
       savedNotes;
 
   }
+
+}
+
+/* RESET */
+
+function resetProgress() {
+
+  localStorage.clear();
+
+  location.reload();
 
 }
 

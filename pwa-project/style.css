@@ -1,6 +1,6 @@
 body {
 
-  background-color: #0f1117;
+  background-color: #0f172a;
 
   color: white;
 
@@ -15,22 +15,15 @@ body {
   background: linear-gradient(
     to right,
     #111827,
-    #1f2937
+    #1e293b
   );
 
-  box-shadow: 0px 2px 10px rgba(0,0,0,0.5);
+  box-shadow:
+    0px 3px 12px rgba(0,0,0,0.4);
 
 }
 
-.navbar h1 {
-
-  margin-left: 10px;
-
-  font-weight: bold;
-
-}
-
-/* HEADER */
+/* HERO */
 
 h2 {
 
@@ -40,25 +33,29 @@ h2 {
 
 }
 
-p {
+.hero-text {
 
-  color: #cbd5e1;
+  color: #e2e8f0;
+
+  max-width: 900px;
+
+  margin: auto;
 
 }
 
-/* SEARCH BAR */
+/* SEARCH */
 
 #searchInput {
 
-  padding: 15px;
-
-  border-radius: 15px;
+  background-color: #1e293b;
 
   border: 2px solid #3b82f6;
 
-  background-color: #1e293b;
-
   color: white;
+
+  border-radius: 15px;
+
+  padding: 15px;
 
 }
 
@@ -66,7 +63,8 @@ p {
 
   outline: none;
 
-  box-shadow: 0px 0px 12px #3b82f6;
+  box-shadow:
+    0px 0px 12px #3b82f6;
 
 }
 
@@ -76,9 +74,12 @@ p {
 
   background-color: #1e293b;
 
-  color: white;
+  border: none;
 
   border-radius: 20px;
+
+  box-shadow:
+    0px 5px 20px rgba(0,0,0,0.3);
 
   overflow: hidden;
 
@@ -86,19 +87,14 @@ p {
     transform 0.3s ease,
     box-shadow 0.3s ease;
 
-  border: none;
-
-  box-shadow:
-    0px 4px 15px rgba(0,0,0,0.4);
-
 }
 
 .card:hover {
 
-  transform: translateY(-5px);
+  transform: translateY(-6px);
 
   box-shadow:
-    0px 8px 20px rgba(59,130,246,0.3);
+    0px 10px 25px rgba(59,130,246,0.25);
 
 }
 
@@ -108,23 +104,25 @@ p {
 
   object-fit: cover;
 
-  transition: transform 0.3s ease;
-
-}
-
-.card:hover img {
-
-  transform: scale(1.05);
-
 }
 
 .card-body h5 {
 
   color: #60a5fa;
 
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+
+}
+
+.card-body p {
+
+  color: #f8fafc;
+
+  font-size: 1rem;
+
+  line-height: 1.5;
 
 }
 
@@ -150,25 +148,41 @@ p {
 
 }
 
-/* AUDIO */
+/* DASHBOARD */
 
-audio {
+.dashboard {
 
-  margin-top: 15px;
-
-  width: 100%;
+  background:
+    linear-gradient(
+      to right,
+      #1e293b,
+      #0f172a
+    );
 
 }
 
-/* TIMER */
+/* NOTES */
 
-#timer {
+textarea {
 
-  color: #60a5fa;
+  background-color: #0f172a !important;
 
-  font-weight: bold;
+  color: white !important;
 
-  margin-top: 15px;
+  border: 1px solid #475569 !important;
+
+}
+
+/* DETAIL PANEL */
+
+#topicDetails {
+
+  background:
+    linear-gradient(
+      to right,
+      #1e293b,
+      #172554
+    );
 
 }
 

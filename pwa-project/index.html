@@ -23,9 +23,13 @@
 
   <!-- NAVBAR -->
 
-  <nav class="navbar navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-dark px-4">
 
-    <h1 class="text-light">PrepSync</h1>
+    <h1 class="text-light">
+
+      PrepSync
+
+    </h1>
 
   </nav>
 
@@ -33,31 +37,27 @@
 
   <div class="container mt-4">
 
-    <!-- HEADER -->
+    <!-- HERO -->
 
-    <div class="text-center mb-4">
+    <div class="text-center mb-5">
 
-      <h2>Smart Study Dashboard</h2>
+      <h2>
 
-      <p>Study smarter. Anywhere. Anytime.</p>
+        Smart CS Study Dashboard
 
-      <div class="alert alert-primary mt-4">
+      </h2>
 
-        <h5>How PrepSync Works</h5>
+      <p class="hero-text">
 
-        <p>
+        A productivity-focused Progressive Web App designed
+        to help students review computer science concepts,
+        track learning progress, stay focused, and study offline.
 
-          Browse computer science topics, listen to quick audio summaries,
-          track completed study sessions, save study notes, and stay focused
-          using the built-in Pomodoro study timer.
-
-        </p>
-
-      </div>
+      </p>
 
     </div>
 
-    <!-- SEARCH BAR -->
+    <!-- SEARCH -->
 
     <div class="mb-4">
 
@@ -70,9 +70,9 @@
 
     </div>
 
-    <!-- PROGRESS -->
+    <!-- DASHBOARD -->
 
-    <div class="text-center mb-4">
+    <div class="dashboard card p-4 mb-5">
 
       <h4 id="progressText">
 
@@ -92,11 +92,32 @@
 
       </h5>
 
+      <button
+        class="btn btn-danger mt-4"
+        onclick="resetProgress()"
+      >
+
+        Reset Study Progress
+
+      </button>
+
     </div>
 
     <!-- TIMER -->
 
-    <div class="text-center mb-5">
+    <div class="card p-4 mb-5 text-center">
+
+      <h3>
+
+        Pomodoro Study Timer
+
+      </h3>
+
+      <p>
+
+        Stay focused using structured 25-minute study sessions.
+
+      </p>
 
       <button
         class="btn btn-primary"
@@ -107,7 +128,7 @@
 
       </button>
 
-      <h3 id="timer" class="mt-3"></h3>
+      <h2 id="timer" class="mt-4"></h2>
 
     </div>
 
@@ -115,23 +136,45 @@
 
     <div class="card p-4 mb-5">
 
-      <h4>Study Notes</h4>
+      <h3>
+
+        Persistent Study Notes
+
+      </h3>
+
+      <p>
+
+        Notes automatically save while you type.
+
+      </p>
 
       <textarea
         id="studyNotes"
-        class="form-control mb-3"
-        rows="5"
-        placeholder="Write study notes here..."
+        class="form-control"
+        rows="6"
+        placeholder="Write notes here..."
       ></textarea>
 
-      <button
-        class="btn btn-primary"
-        onclick="saveNotes()"
-      >
+    </div>
 
-        Save Notes
+    <!-- LEARNING PANEL -->
 
-      </button>
+    <div
+      id="topicDetails"
+      class="card p-4 mb-5 d-none"
+    >
+
+      <h2 id="detailTitle"></h2>
+
+      <p id="detailDescription"></p>
+
+      <div class="alert alert-info mt-3">
+
+        <h5>Study Tip</h5>
+
+        <p id="studyTip"></p>
+
+      </div>
 
     </div>
 
