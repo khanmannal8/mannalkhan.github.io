@@ -2,6 +2,8 @@ let currentCorrectAnswer = 0;
 
 let currentDeck = "General Study";
 
+let currentSearch = "";
+
 /* LOAD TOPICS */
 
 fetch("topics.json")
@@ -37,15 +39,11 @@ fetch("topics.json")
           <div class="card-body">
 
             <h5>
-
               ${subject.title}
-
             </h5>
 
             <p>
-
               ${subject.description}
-
             </p>
 
             <audio controls class="w-100">
@@ -74,8 +72,6 @@ fetch("topics.json")
         </div>
 
       `;
-
-      /* OPEN TOPIC */
 
       card.addEventListener("click", () => {
 
@@ -107,25 +103,6 @@ fetch("topics.json")
         document.getElementById(
           "topicDetails"
         ).classList.remove("d-none");
-
-        /* LINKS */
-
-        document.getElementById(
-          "youtubeLink"
-        ).href =
-        `https://www.youtube.com/results?search_query=${subject.title}+computer+science`;
-
-        document.getElementById(
-          "googleLink"
-        ).href =
-        `https://www.google.com/search?q=${subject.title}+computer+science`;
-
-        document.getElementById(
-          "wikiLink"
-        ).href =
-        `https://en.wikipedia.org/wiki/${subject.title}`;
-
-        /* QUIZ */
 
         loadQuiz(subject.title);
 
@@ -186,7 +163,7 @@ document.addEventListener(
   }
 );
 
-/* COMPLETE TOPICS */
+/* COMPLETE */
 
 document.addEventListener(
   "click",
@@ -228,7 +205,7 @@ document.addEventListener(
   }
 );
 
-/* UPDATE PROGRESS */
+/* PROGRESS */
 
 function updateCompletedTopics() {
 
@@ -260,7 +237,7 @@ function updateCompletedTopics() {
 
 }
 
-/* DAILY GOALS */
+/* GOALS */
 
 function saveGoal() {
 
@@ -299,102 +276,119 @@ function loadGoal() {
 
 }
 
-/* STUDY TIPS */
+/* NOTES */
 
-function getStudyTip(topic) {
+document.addEventListener(
+  "input",
+  function(e) {
 
-  if(topic.includes("Algorithms")) {
+    if(e.target.id === "studyNotes") {
 
-    return `
-      Practice tracing algorithms
-      step-by-step using diagrams.
-    `;
+      localStorage.setItem(
 
-  }
+        `notes-${currentDeck}`,
 
-  if(topic.includes("Operating")) {
+        e.target.value
 
-    return `
-      Focus on memory management
-      and process scheduling.
-    `;
+      );
+
+    }
 
   }
+);
 
-  if(topic.includes("Networks")) {
+function loadSavedNotes() {
 
-    return `
-      Understand how packets move
-      through routers and protocols.
-    `;
+  const savedNotes =
+    localStorage.getItem(
+      `notes-${currentDeck}`
+    );
 
-  }
+  if(savedNotes) {
 
-  if(topic.includes("Cyber")) {
-
-    return `
-      Focus on encryption,
-      authentication,
-      and threat prevention.
-    `;
+    document.getElementById(
+      "studyNotes"
+    ).value =
+    savedNotes;
 
   }
-
-  return `
-    Practice active recall and review notes consistently.
-  `;
 
 }
 
-/* AI SUMMARY */
+function openDeck(deckName) {
 
-function generateSummary(topic) {
+  currentDeck = deckName;
 
-  if(topic.includes("Algorithms")) {
+  document.getElementById(
+    "notesDeckTitle"
+  ).innerHTML =
+  `Notes For: ${deckName}`;
 
-    return `
-      Algorithms solve problems
-      through logical step-by-step
-      procedures like sorting,
-      searching, and recursion.
-    `;
+  const savedDeckNotes =
+    localStorage.getItem(
+      `notes-${deckName}`
+    );
 
-  }
+  document.getElementById(
+    "studyNotes"
+  ).value =
+  savedDeckNotes || "";
 
-  if(topic.includes("Operating")) {
+}
 
-    return `
-      Operating systems manage
-      hardware resources,
-      processes, and memory allocation.
-    `;
+/* RESOURCE SEARCH */
 
-  }
+function searchResources() {
 
-  if(topic.includes("Networks")) {
+  currentSearch =
+    document.getElementById(
+      "resourceSearch"
+    ).value;
 
-    return `
-      Computer networks allow
-      devices to communicate using
-      protocols and routing systems.
-    `;
+  if(currentSearch.trim() !== "") {
 
-  }
+    document.getElementById(
+      "resourcePanel"
+    ).classList.remove("d-none");
 
-  if(topic.includes("Cyber")) {
-
-    return `
-      Cybersecurity protects systems
-      and data using encryption
-      and authentication methods.
-    `;
+    showGoogle();
 
   }
 
-  return `
-    Review major concepts and
-    reinforce understanding with quizzes.
-  `;
+}
+
+function showGoogle() {
+
+  window.open(
+    `https://www.google.com/search?q=${currentSearch}`,
+    "_blank"
+  );
+
+}
+
+function showYouTube() {
+
+  window.open(
+    `https://www.youtube.com/results?search_query=${currentSearch}`,
+    "_blank"
+  );
+
+}
+
+function showWikipedia() {
+
+  window.open(
+    `https://en.wikipedia.org/wiki/${currentSearch}`,
+    "_blank"
+  );
+
+}
+
+function closeResources() {
+
+  document.getElementById(
+    "resourcePanel"
+  ).classList.add("d-none");
 
 }
 
@@ -442,21 +436,6 @@ function loadQuiz(topic) {
 
   }
 
-  else if(topic.includes("Networks")) {
-
-    question =
-      "What do computer networks allow?";
-
-    choices = [
-      "Communication between devices",
-      "Battery optimization",
-      "Graphics rendering"
-    ];
-
-    correct = 0;
-
-  }
-
   else {
 
     question =
@@ -476,32 +455,25 @@ function loadQuiz(topic) {
 
   document.getElementById(
     "quizQuestion"
-  ).innerHTML =
-  question;
+  ).innerHTML = question;
 
   document.getElementById(
     "choice0"
-  ).innerHTML =
-  choices[0];
+  ).innerHTML = choices[0];
 
   document.getElementById(
     "choice1"
-  ).innerHTML =
-  choices[1];
+  ).innerHTML = choices[1];
 
   document.getElementById(
     "choice2"
-  ).innerHTML =
-  choices[2];
+  ).innerHTML = choices[2];
 
   document.getElementById(
     "quizResult"
-  ).innerHTML =
-  "";
+  ).innerHTML = "";
 
 }
-
-/* CHECK ANSWERS */
 
 function checkAnswer(choice) {
 
@@ -523,12 +495,35 @@ function checkAnswer(choice) {
   else {
 
     result.innerHTML =
-      "Incorrect. Review the topic and try again.";
+      "Incorrect. Try again.";
 
     result.style.color =
       "#f87171";
 
   }
+
+}
+
+/* STUDY TIPS */
+
+function getStudyTip(topic) {
+
+  return `
+    Review notes consistently
+    and practice active recall.
+  `;
+
+}
+
+/* SUMMARIES */
+
+function generateSummary(topic) {
+
+  return `
+    Review the major concepts
+    and reinforce understanding
+    through quizzes and practice.
+  `;
 
 }
 
@@ -539,9 +534,7 @@ function startTimer() {
   let time = 1500;
 
   const timerDisplay =
-    document.getElementById(
-      "timer"
-    );
+    document.getElementById("timer");
 
   const countdown = setInterval(() => {
 
@@ -569,91 +562,6 @@ function startTimer() {
 
 }
 
-/* NOTES */
-
-document.addEventListener(
-  "input",
-  function(e) {
-
-    if(e.target.id === "studyNotes") {
-
-      localStorage.setItem(
-
-        `notes-${currentDeck}`,
-
-        e.target.value
-
-      );
-
-    }
-
-  }
-);
-
-function loadSavedNotes() {
-
-  const savedNotes =
-    localStorage.getItem(
-      `notes-${currentDeck}`
-    );
-
-  if(savedNotes) {
-
-    document.getElementById(
-      "studyNotes"
-    ).value =
-    savedNotes;
-
-  }
-
-}
-
-/* OPEN DECKS */
-
-function openDeck(deckName) {
-
-  currentDeck = deckName;
-
-  document.getElementById(
-    "notesDeckTitle"
-  ).innerHTML =
-  `Notes For: ${deckName}`;
-
-  const savedDeckNotes =
-    localStorage.getItem(
-      `notes-${deckName}`
-    );
-
-  document.getElementById(
-    "studyNotes"
-  ).value =
-  savedDeckNotes || "";
-
-}
-
-/* SEARCH RESOURCES */
-
-function searchResources() {
-
-  const query =
-    document.getElementById(
-      "resourceSearch"
-    ).value;
-
-  if(query.trim() !== "") {
-
-    window.open(
-
-      `https://www.google.com/search?q=${query}+computer+science+tutorial`,
-
-      "_blank"
-
-    );
-
-  }
-
-}
-
 /* RESET */
 
 function resetProgress() {
@@ -661,6 +569,94 @@ function resetProgress() {
   localStorage.clear();
 
   location.reload();
+
+}
+
+/* MODALS */
+
+function openDeckModal(deckName) {
+
+  openDeck(deckName);
+
+  const modal =
+    new bootstrap.Modal(
+      document.getElementById(
+        "deckModal"
+      )
+    );
+
+  document.getElementById(
+    "deckModalTitle"
+  ).innerHTML = deckName;
+
+  let description = "";
+
+  let topics = [];
+
+  if(deckName === "Algorithms") {
+
+    description =
+      "Master recursion, sorting, and optimization.";
+
+    topics = [
+      "Binary Search",
+      "Sorting",
+      "Recursion",
+      "Complexity"
+    ];
+
+  }
+
+  else if(deckName === "Operating Systems") {
+
+    description =
+      "Learn process scheduling and memory management.";
+
+    topics = [
+      "Threads",
+      "Processes",
+      "Scheduling",
+      "Memory"
+    ];
+
+  }
+
+  else {
+
+    description =
+      "Explore cybersecurity concepts and protection systems.";
+
+    topics = [
+      "Encryption",
+      "Authentication",
+      "Threat Detection"
+    ];
+
+  }
+
+  document.getElementById(
+    "deckModalDescription"
+  ).innerHTML = description;
+
+  const list =
+    document.getElementById(
+      "deckTopics"
+    );
+
+  list.innerHTML = "";
+
+  topics.forEach(topic => {
+
+    const li =
+      document.createElement("li");
+
+    li.innerHTML = topic;
+
+    list.appendChild(li);
+
+  });
+
+  modal.show();
 
 }
 

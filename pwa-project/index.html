@@ -13,6 +13,12 @@
   <title>PrepSync</title>
 
   <link
+    rel="icon"
+    type="image/png"
+    href="images/icon.png"
+  >
+
+  <link
     rel="manifest"
     href="manifest.json"
   >
@@ -137,7 +143,7 @@
           <p>
 
             Search tutorials,
-            documentation,
+            videos,
             and explanations.
 
           </p>
@@ -148,7 +154,7 @@
               type="text"
               id="resourceSearch"
               class="form-control"
-              placeholder="Search computer science..."
+              placeholder="Search anything..."
             >
 
             <button
@@ -165,6 +171,72 @@
         </div>
 
       </div>
+
+    </div>
+
+    <!-- RESOURCE PANEL -->
+
+    <div
+      id="resourcePanel"
+      class="card p-4 mb-5 d-none"
+    >
+
+      <div class="d-flex justify-content-between align-items-center">
+
+        <h3>
+
+          Learning Resources
+
+        </h3>
+
+        <button
+          class="btn btn-danger"
+          onclick="closeResources()"
+        >
+
+          Close
+
+        </button>
+
+      </div>
+
+      <div class="d-flex gap-2 flex-wrap mt-3 mb-4">
+
+        <button
+          class="btn btn-outline-info"
+          onclick="showGoogle()"
+        >
+
+          Google
+
+        </button>
+
+        <button
+          class="btn btn-outline-danger"
+          onclick="showYouTube()"
+        >
+
+          YouTube
+
+        </button>
+
+        <button
+          class="btn btn-outline-light"
+          onclick="showWikipedia()"
+        >
+
+          Wikipedia
+
+        </button>
+
+      </div>
+
+      <iframe
+        id="resourceFrame"
+        width="100%"
+        height="700"
+        style="border:none; border-radius:20px;"
+      ></iframe>
 
     </div>
 
@@ -239,7 +311,7 @@
 
     </div>
 
-    <!-- STUDY DECKS -->
+    <!-- DECKS -->
 
     <div class="card p-4 mb-5">
 
@@ -259,7 +331,7 @@
 
         <button
           class="btn btn-outline-info"
-          onclick="openDeck('Algorithms')"
+          onclick="openDeckModal('Algorithms')"
         >
 
           Algorithms
@@ -268,7 +340,7 @@
 
         <button
           class="btn btn-outline-info"
-          onclick="openDeck('Operating Systems')"
+          onclick="openDeckModal('Operating Systems')"
         >
 
           Operating Systems
@@ -277,7 +349,7 @@
 
         <button
           class="btn btn-outline-info"
-          onclick="openDeck('Networks')"
+          onclick="openDeckModal('Networks')"
         >
 
           Networks
@@ -286,7 +358,7 @@
 
         <button
           class="btn btn-outline-info"
-          onclick="openDeck('Cybersecurity')"
+          onclick="openDeckModal('Cybersecurity')"
         >
 
           Cybersecurity
@@ -295,7 +367,7 @@
 
         <button
           class="btn btn-outline-info"
-          onclick="openDeck('Artificial Intelligence')"
+          onclick="openDeckModal('Artificial Intelligence')"
         >
 
           AI
@@ -304,12 +376,60 @@
 
         <button
           class="btn btn-outline-info"
-          onclick="openDeck('Cloud Computing')"
+          onclick="openDeckModal('Cloud Computing')"
         >
 
           Cloud Computing
 
         </button>
+
+      </div>
+
+    </div>
+
+    <!-- MODAL -->
+
+    <div
+      class="modal fade"
+      id="deckModal"
+      tabindex="-1"
+    >
+
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content bg-dark text-light">
+
+          <div class="modal-header border-secondary">
+
+            <h3 id="deckModalTitle"></h3>
+
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+            ></button>
+
+          </div>
+
+          <div class="modal-body">
+
+            <p id="deckModalDescription"></p>
+
+            <div class="mt-4">
+
+              <h5>
+
+                Recommended Topics
+
+              </h5>
+
+              <ul id="deckTopics"></ul>
+
+            </div>
+
+          </div>
+
+        </div>
 
       </div>
 
@@ -366,7 +486,7 @@
 
     </div>
 
-    <!-- DETAILS -->
+    <!-- TOPIC DETAILS -->
 
     <div
       id="topicDetails"
@@ -398,52 +518,6 @@
         </h5>
 
         <p id="studyTip"></p>
-
-      </div>
-
-      <!-- LINKS -->
-
-      <div class="mt-4">
-
-        <h5>
-
-          Continue Learning
-
-        </h5>
-
-        <div class="d-grid gap-2 mt-3">
-
-          <a
-            id="youtubeLink"
-            class="btn btn-danger"
-            target="_blank"
-          >
-
-            Watch Tutorials
-
-          </a>
-
-          <a
-            id="googleLink"
-            class="btn btn-info"
-            target="_blank"
-          >
-
-            Google Resources
-
-          </a>
-
-          <a
-            id="wikiLink"
-            class="btn btn-secondary"
-            target="_blank"
-          >
-
-            Wikipedia Overview
-
-          </a>
-
-        </div>
 
       </div>
 
@@ -513,6 +587,8 @@
   </footer>
 
   <script src="app.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
