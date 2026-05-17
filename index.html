@@ -1,91 +1,303 @@
-<!-- HOMEWORK -->
+<!DOCTYPE html>
 
-<div class="container mb-5">
+<html lang="en">
 
-    <h2 class="section-title">
+<head>
 
-        Homework Assignments
+    <meta charset="UTF-8">
 
-    </h2>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <div class="row g-4">
+    <title>
+        Mannal Khan Portfolio
+    </title>
 
-        <!-- BOOTSTRAP -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
-        <div class="col-md-6 col-lg-4">
+    <style>
 
-            <div class="card">
+        body {
 
-                <img
-                    src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
-                >
+            background:
+                linear-gradient(
+                    135deg,
+                    #120b26,
+                    #1a1440,
+                    #0f172a
+                );
 
-                <div class="card-body">
+            color: white;
 
-                    <h5 class="card-title">
+            font-family: 'Segoe UI', sans-serif;
 
-                        Bootstrap Assignment
+            min-height: 100vh;
 
-                    </h5>
+        }
 
-                    <p class="card-text">
+        .hero {
 
-                        Responsive webpage built
-                        using Bootstrap layout,
-                        grids, and UI components.
+            text-align: center;
 
-                    </p>
+            padding: 80px 20px 60px;
 
-                    <a
-                        href="bootstrap.html"
-                        class="btn btn-primary"
+        }
+
+        .hero h1 {
+
+            font-size: 4rem;
+
+            font-weight: 800;
+
+            color: white;
+
+        }
+
+        .hero p {
+
+            color: #e9d5ff;
+
+            font-size: 1.1rem;
+
+        }
+
+        .section-title {
+
+            font-size: 2.3rem;
+
+            font-weight: 700;
+
+            margin-bottom: 30px;
+
+            color: white;
+
+        }
+
+        .card {
+
+            background:
+                rgba(30,27,75,0.95);
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            backdrop-filter: blur(14px);
+
+            box-shadow:
+                0px 10px 30px rgba(0,0,0,0.35);
+
+            transition:
+                all 0.3s ease;
+
+            height: 100%;
+
+        }
+
+        .card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0px 15px 40px rgba(168,85,247,0.3);
+
+        }
+
+        .card img {
+
+            height: 220px;
+
+            object-fit: cover;
+
+            width: 100%;
+
+        }
+
+        .card-title {
+
+            color: white;
+
+            font-weight: 700;
+
+        }
+
+        .card-text {
+
+            color: #e2e8f0;
+
+            line-height: 1.7;
+
+        }
+
+        .btn-primary {
+
+            background:
+                linear-gradient(
+                    to right,
+                    #8b5cf6,
+                    #7c3aed
+                );
+
+            border: none;
+
+            border-radius: 14px;
+
+        }
+
+        .in-progress {
+
+            background:
+                rgba(251,191,36,0.15);
+
+            border:
+                1px solid rgba(251,191,36,0.3);
+
+        }
+
+        footer {
+
+            text-align: center;
+
+            padding: 50px 0;
+
+            color: #cbd5e1;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HERO -->
+
+    <div class="hero">
+
+        <h1>
+
+            Mannal Khan
+
+        </h1>
+
+        <p class="mt-4">
+
+            Brooklyn College Computer Science Student
+
+        </p>
+
+        <p>
+
+            CISC 3610 • Spring 2026
+
+        </p>
+
+        <p>
+
+            mannnal.khan52@bcmail.cuny.edu
+
+        </p>
+
+    </div>
+
+    <!-- HOMEWORK -->
+
+    <div class="container mb-5">
+
+        <h2 class="section-title">
+
+            Homework Assignments
+
+        </h2>
+
+        <div class="row g-4">
+
+            <!-- BOOTSTRAP -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
                     >
 
-                        View Assignment
+                    <div class="card-body">
 
-                    </a>
+                        <h5 class="card-title">
+
+                            Bootstrap Assignment
+
+                        </h5>
+
+                        <p class="card-text">
+
+                            Responsive webpage built
+                            using Bootstrap layout,
+                            grids, and UI components.
+
+                        </p>
+
+                        <a
+                            href="bootstrap.html"
+                            class="btn btn-primary"
+                        >
+
+                            View Assignment
+
+                        </a>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+            <!-- RESUME -->
 
-        <!-- RESUME -->
+            <div class="col-md-6 col-lg-4">
 
-        <div class="col-md-6 col-lg-4">
+                <div class="card">
 
-            <div class="card">
-
-                <img
-                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
-                >
-
-                <div class="card-body">
-
-                    <h5 class="card-title">
-
-                        Resume Assignment
-
-                    </h5>
-
-                    <p class="card-text">
-
-                        Professional software engineering
-                        resume webpage created using
-                        Bootstrap, responsive layouts,
-                        and modern UI design principles.
-
-                    </p>
-
-                    <a
-                        href="resume.html"
-                        class="btn btn-primary"
+                    <img
+                        src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
                     >
 
-                        View Assignment
+                    <div class="card-body">
 
-                    </a>
+                        <h5 class="card-title">
+
+                            Resume Assignment
+
+                        </h5>
+
+                        <p class="card-text">
+
+                            Professional software engineering
+                            resume webpage created using
+                            Bootstrap, responsive layouts,
+                            and modern UI design principles.
+
+                        </p>
+
+                        <a
+                            href="resume.html"
+                            class="btn btn-primary"
+                        >
+
+                            View Assignment
+
+                        </a>
+
+                    </div>
 
                 </div>
 
@@ -95,4 +307,209 @@
 
     </div>
 
-</div>
+    <!-- PROJECTS -->
+
+    <div class="container mb-5">
+
+        <h2 class="section-title">
+
+            Major Projects
+
+        </h2>
+
+        <div class="row g-4">
+
+            <!-- CARTOON -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4"
+                    >
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+
+                            Cartoon Project
+
+                        </h5>
+
+                        <p class="card-text">
+
+                            HTML5 Canvas animation
+                            project using JavaScript
+                            drawing and rendering techniques.
+
+                        </p>
+
+                        <a
+                            href="cartoon.html"
+                            class="btn btn-primary"
+                        >
+
+                            View Project
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- WORDS -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935"
+                    >
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+
+                            Words Project
+
+                        </h5>
+
+                        <p class="card-text">
+
+                            Interactive multimedia project
+                            focused on typography,
+                            visuals, and user interaction.
+
+                        </p>
+
+                        <a
+                            href="words.html"
+                            class="btn btn-primary"
+                        >
+
+                            View Project
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PREPSYNC -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card">
+
+                    <img
+                        src="pwa-project/images/screenshot1.png"
+                    >
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+
+                            PrepSync PWA
+
+                        </h5>
+
+                        <p class="card-text">
+
+                            Progressive Web App for
+                            computer science studying,
+                            productivity tracking,
+                            quizzes, notes,
+                            and learning resources.
+
+                        </p>
+
+                        <a
+                            href="pwa-project/promotional-page.html"
+                            class="btn btn-primary"
+                        >
+
+                            View Project
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- IN PROGRESS -->
+
+    <div class="container mb-5">
+
+        <h2 class="section-title">
+
+            In Progress
+
+        </h2>
+
+        <div class="row g-4">
+
+            <!-- WICK -->
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card in-progress">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2"
+                    >
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">
+
+                            Wick Animation Project
+
+                        </h5>
+
+                        <p class="card-text">
+
+                            Animated multimedia scene
+                            using Wick Editor with layered
+                            motion and tween animation.
+
+                        </p>
+
+                        <button
+                            class="btn btn-warning"
+                        >
+
+                            Currently In Progress
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+
+        Mannal Khan © 2026
+
+    </footer>
+
+</body>
+
+</html>
