@@ -259,6 +259,12 @@ textarea::placeholder,
 
 }
 
+.btn-outline-danger {
+
+  border-radius: 14px;
+
+}
+
 /* DASHBOARD */
 
 .dashboard {
@@ -322,14 +328,6 @@ textarea::placeholder,
       #1e1b4b,
       #0f172a
     ) !important;
-
-}
-
-/* IFRAME */
-
-iframe {
-
-  background: white;
 
 }
 
