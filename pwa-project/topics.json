@@ -8,12 +8,12 @@
       "audio": "audio/algorithms.mp3"
     },
 
- {
-  "title": "Operating Systems",
-  "description": "Understand memory management, scheduling, and processes.",
-  "image": "images/os.jpg",
-  "audio": "audio/os.mp3"
-},
+    {
+      "title": "Operating Systems",
+      "description": "Understand memory management, scheduling, and processes.",
+      "image": "images/os.jpg",
+      "audio": "audio/os.mp3"
+    },
 
     {
       "title": "Computer Networks",
@@ -22,12 +22,12 @@
       "audio": "audio/networks.mp3"
     },
 
-  {
-  "title": "Cybersecurity",
-  "description": "Study encryption, authentication, and digital security systems.",
-  "image": "images/security.jpg",
-  "audio": "audio/security.mp3"
-},
+    {
+      "title": "Cybersecurity",
+      "description": "Study encryption, authentication, and digital security systems.",
+      "image": "images/security.jpg",
+      "audio": "audio/security.mp3"
+    },
 
     {
       "title": "Artificial Intelligence",
