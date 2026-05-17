@@ -338,49 +338,163 @@ function openDeck(deckName) {
 
 /* RESOURCE SEARCH */
 
+const learningResources = [
+
+  {
+    title: "Binary Search Tutorial",
+    category: "Algorithms",
+    type: "YouTube",
+    link:
+      "https://www.youtube.com/watch?v=MFhxShGxHWc"
+  },
+
+  {
+    title: "Recursion Explained",
+    category: "Algorithms",
+    type: "Article",
+    link:
+      "https://www.geeksforgeeks.org/recursion/"
+  },
+
+  {
+    title: "Operating Systems Overview",
+    category: "Operating Systems",
+    type: "YouTube",
+    link:
+      "https://www.youtube.com/watch?v=26QPDBe-NB8"
+  },
+
+  {
+    title: "TCP/IP Networking Basics",
+    category: "Networks",
+    type: "Article",
+    link:
+      "https://www.cloudflare.com/learning/ddos/glossary/tcp-ip/"
+  },
+
+  {
+    title: "Cybersecurity Fundamentals",
+    category: "Cybersecurity",
+    type: "YouTube",
+    link:
+      "https://www.youtube.com/watch?v=inWWhr5tnEA"
+  },
+
+  {
+    title: "Machine Learning Crash Course",
+    category: "Artificial Intelligence",
+    type: "YouTube",
+    link:
+      "https://developers.google.com/machine-learning/crash-course"
+  },
+
+  {
+    title: "AWS Cloud Computing Basics",
+    category: "Cloud Computing",
+    type: "Article",
+    link:
+      "https://aws.amazon.com/what-is-cloud-computing/"
+  }
+
+];
+
 function searchResources() {
 
-  currentSearch =
+  const query =
     document.getElementById(
       "resourceSearch"
-    ).value;
+    ).value.toLowerCase();
 
-  if(currentSearch.trim() !== "") {
-
+  const panel =
     document.getElementById(
       "resourcePanel"
-    ).classList.remove("d-none");
+    );
 
-    showGoogle();
+  const results =
+    document.getElementById(
+      "resourceResults"
+    );
+
+  results.innerHTML = "";
+
+  const filtered =
+    learningResources.filter(resource =>
+
+      resource.title
+        .toLowerCase()
+        .includes(query)
+
+      ||
+
+      resource.category
+        .toLowerCase()
+        .includes(query)
+
+    );
+
+  if(filtered.length > 0) {
+
+    panel.classList.remove("d-none");
+
+    filtered.forEach(resource => {
+
+      results.innerHTML += `
+
+        <div class="card p-3 mb-3">
+
+          <h5>
+
+            ${resource.title}
+
+          </h5>
+
+          <p>
+
+            Category:
+            ${resource.category}
+
+          </p>
+
+          <p>
+
+            Resource Type:
+            ${resource.type}
+
+          </p>
+
+          <a
+            href="${resource.link}"
+            target="_blank"
+            class="btn btn-primary"
+          >
+
+            Open Resource
+
+          </a>
+
+        </div>
+
+      `;
+
+    });
 
   }
 
-}
+  else {
 
-function showGoogle() {
+    panel.classList.remove("d-none");
 
-  window.open(
-    `https://www.google.com/search?q=${currentSearch}`,
-    "_blank"
-  );
+    results.innerHTML = `
 
-}
+      <p>
 
-function showYouTube() {
+        No matching resources found.
 
-  window.open(
-    `https://www.youtube.com/results?search_query=${currentSearch}`,
-    "_blank"
-  );
+      </p>
 
-}
+    `;
 
-function showWikipedia() {
-
-  window.open(
-    `https://en.wikipedia.org/wiki/${currentSearch}`,
-    "_blank"
-  );
+  }
 
 }
 
