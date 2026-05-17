@@ -75,7 +75,7 @@ fetch("topics.json")
 
       `;
 
-      /* CLICK CARD */
+      /* OPEN TOPIC */
 
       card.addEventListener("click", () => {
 
@@ -95,25 +95,20 @@ fetch("topics.json")
         subject.description;
 
         document.getElementById(
-          "studyTip"
-        ).innerHTML =
-        getStudyTip(subject.title);
-
-        document.getElementById(
           "studySummary"
         ).innerHTML =
         generateSummary(subject.title);
 
         document.getElementById(
-          "difficultyBadge"
+          "studyTip"
         ).innerHTML =
-        getDifficulty(subject.title);
+        getStudyTip(subject.title);
 
         document.getElementById(
           "topicDetails"
         ).classList.remove("d-none");
 
-        /* RESOURCE LINKS */
+        /* LINKS */
 
         document.getElementById(
           "youtubeLink"
@@ -143,6 +138,8 @@ fetch("topics.json")
     updateCompletedTopics();
 
     loadSavedNotes();
+
+    loadGoal();
 
   });
 
@@ -263,6 +260,45 @@ function updateCompletedTopics() {
 
 }
 
+/* DAILY GOALS */
+
+function saveGoal() {
+
+  const goal =
+    document.getElementById(
+      "goalInput"
+    ).value;
+
+  localStorage.setItem(
+    "dailyGoal",
+    goal
+  );
+
+  document.getElementById(
+    "goalText"
+  ).innerHTML =
+  `Daily Goal: ${goal} Topics`;
+
+}
+
+function loadGoal() {
+
+  const savedGoal =
+    localStorage.getItem(
+      "dailyGoal"
+    );
+
+  if(savedGoal) {
+
+    document.getElementById(
+      "goalText"
+    ).innerHTML =
+    `Daily Goal: ${savedGoal} Topics`;
+
+  }
+
+}
+
 /* STUDY TIPS */
 
 function getStudyTip(topic) {
@@ -279,8 +315,8 @@ function getStudyTip(topic) {
   if(topic.includes("Operating")) {
 
     return `
-      Focus on process scheduling
-      and memory management.
+      Focus on memory management
+      and process scheduling.
     `;
 
   }
@@ -299,19 +335,18 @@ function getStudyTip(topic) {
     return `
       Focus on encryption,
       authentication,
-      and attack prevention.
+      and threat prevention.
     `;
 
   }
 
   return `
-    Review notes consistently
-    and practice active recall.
+    Practice active recall and review notes consistently.
   `;
 
 }
 
-/* AI SUMMARIES */
+/* AI SUMMARY */
 
 function generateSummary(topic) {
 
@@ -319,10 +354,9 @@ function generateSummary(topic) {
 
     return `
       Algorithms solve problems
-      using logical step-by-step
-      procedures. Focus on sorting,
-      searching, recursion,
-      and optimization.
+      through logical step-by-step
+      procedures like sorting,
+      searching, and recursion.
     `;
 
   }
@@ -331,9 +365,8 @@ function generateSummary(topic) {
 
     return `
       Operating systems manage
-      memory, scheduling,
-      processes, and hardware
-      resources.
+      hardware resources,
+      processes, and memory allocation.
     `;
 
   }
@@ -342,9 +375,8 @@ function generateSummary(topic) {
 
     return `
       Computer networks allow
-      devices to communicate
-      through routing,
-      DNS, and protocols.
+      devices to communicate using
+      protocols and routing systems.
     `;
 
   }
@@ -353,43 +385,16 @@ function generateSummary(topic) {
 
     return `
       Cybersecurity protects systems
-      and data using encryption,
-      authentication,
-      and threat prevention.
+      and data using encryption
+      and authentication methods.
     `;
 
   }
 
   return `
-    Review the major concepts
-    and practice active recall.
+    Review major concepts and
+    reinforce understanding with quizzes.
   `;
-
-}
-
-/* DIFFICULTY */
-
-function getDifficulty(topic) {
-
-  if(topic.includes("Algorithms")) {
-
-    return "Advanced";
-
-  }
-
-  if(topic.includes("Operating")) {
-
-    return "Intermediate";
-
-  }
-
-  if(topic.includes("Networks")) {
-
-    return "Intermediate";
-
-  }
-
-  return "Beginner";
 
 }
 
@@ -410,7 +415,7 @@ function loadQuiz(topic) {
   if(topic.includes("Algorithms")) {
 
     question =
-      "What is the primary goal of an algorithm?";
+      "What is the main goal of an algorithm?";
 
     choices = [
       "Solve problems step-by-step",
@@ -428,9 +433,9 @@ function loadQuiz(topic) {
       "What does an operating system manage?";
 
     choices = [
-      "Only graphics",
+      "Only internet access",
       "Hardware and software resources",
-      "Only internet access"
+      "Only graphics"
     ];
 
     correct = 1;
@@ -443,27 +448,27 @@ function loadQuiz(topic) {
       "What do computer networks allow?";
 
     choices = [
-      "Cooling systems",
       "Communication between devices",
-      "Battery optimization"
+      "Battery optimization",
+      "Graphics rendering"
     ];
 
-    correct = 1;
+    correct = 0;
 
   }
 
   else {
 
     question =
-      "What is cybersecurity mainly focused on?";
+      "What is cybersecurity focused on?";
 
     choices = [
-      "Protecting systems and data",
       "Increasing RAM",
+      "Protecting systems and data",
       "Improving graphics"
     ];
 
-    correct = 0;
+    correct = 1;
 
   }
 
@@ -471,23 +476,28 @@ function loadQuiz(topic) {
 
   document.getElementById(
     "quizQuestion"
-  ).innerHTML = question;
+  ).innerHTML =
+  question;
 
   document.getElementById(
     "choice0"
-  ).innerHTML = choices[0];
+  ).innerHTML =
+  choices[0];
 
   document.getElementById(
     "choice1"
-  ).innerHTML = choices[1];
+  ).innerHTML =
+  choices[1];
 
   document.getElementById(
     "choice2"
-  ).innerHTML = choices[2];
+  ).innerHTML =
+  choices[2];
 
   document.getElementById(
     "quizResult"
-  ).innerHTML = "";
+  ).innerHTML =
+  "";
 
 }
 
@@ -529,7 +539,9 @@ function startTimer() {
   let time = 1500;
 
   const timerDisplay =
-    document.getElementById("timer");
+    document.getElementById(
+      "timer"
+    );
 
   const countdown = setInterval(() => {
 
@@ -596,7 +608,7 @@ function loadSavedNotes() {
 
 }
 
-/* DECKS */
+/* OPEN DECKS */
 
 function openDeck(deckName) {
 
@@ -619,7 +631,7 @@ function openDeck(deckName) {
 
 }
 
-/* RESOURCE SEARCH */
+/* SEARCH RESOURCES */
 
 function searchResources() {
 

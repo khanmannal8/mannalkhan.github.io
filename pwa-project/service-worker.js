@@ -1,11 +1,24 @@
-const CACHE_NAME = "prepsync-cache-v3";
+const CACHE_NAME = "prepsync-v2";
 
 const urlsToCache = [
+
   "./",
   "./index.html",
   "./style.css",
   "./app.js",
-  "./topics.json"
+  "./topics.json",
+
+  "./images/algorithms.jpg",
+  "./images/operating-systems.jpg",
+  "./images/networks.jpg",
+  "./images/cybersecurity.jpg",
+  "./images/ai.jpg",
+  "./images/cloud.jpg",
+  "./images/databases.jpg",
+  "./images/software.jpg",
+
+  "./audio/study-audio.mp3"
+
 ];
 
 self.addEventListener("install", event => {

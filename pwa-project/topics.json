@@ -1,31 +1,61 @@
 {
   "subjects": [
+
     {
       "title": "Algorithms",
       "description": "Learn sorting, searching, recursion, and optimization techniques.",
       "image": "images/algorithms.jpg",
-      "audio": "audio/algorithms.mp3"
+      "audio": "audio/study-audio.mp3"
     },
 
     {
       "title": "Operating Systems",
       "description": "Understand memory management, scheduling, and processes.",
-      "image": "images/os.jpg",
-      "audio": "audio/os.mp3"
+      "image": "images/operating-systems.jpg",
+      "audio": "audio/study-audio.mp3"
     },
 
     {
       "title": "Computer Networks",
       "description": "Explore protocols, routing, DNS, and internet communication.",
       "image": "images/networks.jpg",
-      "audio": "audio/networks.mp3"
+      "audio": "audio/study-audio.mp3"
     },
 
     {
       "title": "Cybersecurity",
-      "description": "Study encryption, authentication, and digital protection systems.",
-      "image": "images/security.jpg",
-      "audio": "audio/security.mp3"
+      "description": "Study encryption, authentication, and digital security systems.",
+      "image": "images/cybersecurity.jpg",
+      "audio": "audio/study-audio.mp3"
+    },
+
+    {
+      "title": "Artificial Intelligence",
+      "description": "Learn machine learning, neural networks, and AI applications.",
+      "image": "images/ai.jpg",
+      "audio": "audio/study-audio.mp3"
+    },
+
+    {
+      "title": "Cloud Computing",
+      "description": "Explore AWS, distributed systems, and scalable infrastructure.",
+      "image": "images/cloud.jpg",
+      "audio": "audio/study-audio.mp3"
+    },
+
+    {
+      "title": "Databases",
+      "description": "Understand SQL, data modeling, and database architecture.",
+      "image": "images/databases.jpg",
+      "audio": "audio/study-audio.mp3"
+    },
+
+    {
+      "title": "Software Engineering",
+      "description": "Study software development lifecycles and engineering principles.",
+      "image": "images/software.jpg",
+      "audio": "audio/study-audio.mp3"
     }
+
   ]
 }
